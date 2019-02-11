@@ -1,0 +1,14 @@
+(defrule
+(unit-type-count villager > 0 )
+=>
+(chat-local-to-self "I just made my first rule!!")
+(disable-self)
+)
+(defrule
+(can-build house)
+(housing-headroom < 4) ;the difference between the current population and supportable population (not the
+;amount of population houses support)
+(population-headroom > 3) ;the difference between the current population and the population limit
+=>
+(build house)
+)
