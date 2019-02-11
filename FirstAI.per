@@ -30,3 +30,11 @@
 =>
 (build mill)
 )
+
+(defrule
+(current-age == dark-age)
+(can-research feudal-age)
+=>
+(research feudal-age)
+(chat-local-to-self "Feudal Age, here we come!")
+)
