@@ -43,6 +43,14 @@
 )
 
 (defrule
+(building-type-count-total lumber-camp == 0)
+(resource-found wood)
+(can-build lumber-camp)
+=>
+(build lumber-camp)
+)
+
+(defrule
 (current-age == dark-age)
 (can-research feudal-age)
 =>
