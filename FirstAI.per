@@ -1,4 +1,15 @@
 (defrule
+(true)
+=>
+(set-strategic-number sn-minimum-civilian-explorers 0); minimum number of vills to explore
+(set-strategic-number sn-cap-civilian-explorers 0); max number of vills to explore
+(set-strategic-number sn-total-number-explorers 1); total number of explorers
+(set-strategic-number sn-number-explore-groups 1); number of explore groups , unused by ai, always set equal to num of explorers
+(set-strategic-number sn-initial-exploration-required 0); percent to explore before building
+(disable-self)
+)
+
+(defrule
 (unit-type-count villager > 0 )
 =>
 (chat-local-to-self "I just made my first rule!!")
