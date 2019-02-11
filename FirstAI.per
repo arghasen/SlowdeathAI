@@ -4,6 +4,7 @@
 (chat-local-to-self "I just made my first rule!!")
 (disable-self)
 )
+
 (defrule
 (can-build house)
 (housing-headroom < 4) ;the difference between the current population and supportable population (not the
@@ -11,4 +12,12 @@
 (population-headroom > 3) ;the difference between the current population and the population limit
 =>
 (build house)
+)
+
+(defrule
+(current-age == dark-age)
+(unit-type-count-total villager < 30)
+(can-train villager)
+=>
+(train villager)
 )
