@@ -21,3 +21,12 @@
 =>
 (train villager)
 )
+
+(defrule
+(building-type-count-total house > 0) ; We want to build a house before a mill
+(building-type-count-total mill == 0) ; Prevents the construction of multiple mills
+(resource-found food) ; Builds a mill only if forage bushes or deer is found
+(can-build mill)
+=>
+(build mill)
+)
