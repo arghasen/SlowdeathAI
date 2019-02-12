@@ -64,11 +64,12 @@
     ;amount of population houses support)
     (population-headroom > 3) ;the difference between the current population and the population limit
     =>
+    (chat-local-to-self "building house.")
     (build house)
 )
 
 (defrule
-    (unit-type-count-total villager < 30)
+    (unit-type-count-total villager < 100)
     (can-train villager)
     =>
     (train villager)
@@ -88,6 +89,7 @@
     (resource-found food) ; Builds a mill only if forage bushes or deer is found
     (can-build mill)
     =>
+    (chat-local-to-self "building mill.")
     (build mill)
 )
 
@@ -96,63 +98,46 @@
     (resource-found wood)
     (can-build lumber-camp)
     =>
+    (chat-local-to-self "building lumbercamp.")
     (build lumber-camp)
 )
 
 (defrule
-    (current-age == dark-age)
-    (building-type-count-total mill > 0);build mill before farms
-    (building-type-count-total lumber-camp > 0) ; We want a lumber camp before farms
-    (unit-type-count-total villager > 15)
-    (building-type-count-total farm < 15)
-    (idle-farm-count < 4) ; Only build farms if there are less than 4 idle farms
-    (can-build farm)
-    =>
-    (build farm)
-)
-
-(defrule
-   (current-age==feudal-age)  
+   (current-age == feudal-age)  
    =>
-   (set-strategic-number sn-food-gatherer-percentage 40)
-   (set-strategic-number sn-wood-gatherer-percentage 50)
+   (set-strategic-number sn-food-gatherer-percentage 50)
+   (set-strategic-number sn-wood-gatherer-percentage 40)
    (set-strategic-number sn-gold-gatherer-percentage 10)
    (set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
 ; build a gold mine in feudal age
 (defrule
-    (current-age==feudal-age)  
+    (current-age == feudal-age)  
     (building-type-count-total mining-camp == 0)
     (resource-found gold)
     (can-build mining-camp)
     =>
+    (chat-local-to-self "building mining-camp.")
     (build mining-camp)
 )
 
 ;build a barrack in feudal age
 (defrule
    (current-age > dark-age)
-   (building-type-count-total barracks ==0)
+   (building-type-count-total barracks == 0)
    (can-build barracks)
    =>
+   (chat-local-to-self "building barracks.")
    (build barracks)
-)
-
-;start trining militia after feudal.
-(defrule
-   (current-age > dark-age)  
-   (can-train militiaman-line)
-   =>
-   (train militiaman-line)
 )
 
 ; research man at arms
 (defrule
    (can-research ri-man-at-arms)
    =>
+   (chat-local-to-self "Researching man at arms.")
    (research ri-man-at-arms)
-   (chat-to-allies "Researching man at arms.")
 )
 ; build a blacksmith
 (defrule
@@ -161,16 +146,51 @@
    (building-type-count-total blacksmith == 0)
    (can-build blacksmith)
    =>
+   (chat-local-to-self "building blacksmith.")
    (build blacksmith)
 )
 ; build a market
 (defrule
    (current-age == feudal-age)
    (building-type-count-total blacksmith > 0)
-   (building-type-count-total market ==0)
+   (building-type-count-total market == 0)
    (can-build market)
    =>
+   (chat-local-to-self "building market.")
    (build market)
+)
+
+; build a monastry
+(defrule
+   (current-age == castle-age)
+   (building-type-count-total monastry == 0)
+   (can-build monastry)
+   =>
+   (chat-local-to-self "building monastry.")
+   (build monastry)
+)
+
+; build a university
+(defrule
+   (current-age == castle-age)
+   (building-type-count-total university == 0)
+   (can-build university)
+   =>
+   (chat-local-to-self "building university.")
+   (build university)
+)
+
+; keep farms at lower priority than buildings
+(defrule
+    (building-type-count-total mill > 0);build mill before farms
+    (building-type-count-total lumber-camp > 0) ; We want a lumber camp before farms
+    (unit-type-count-total villager > 15)
+    (building-type-count-total farm < 15)
+    (idle-farm-count == 0) ; Only build farms if there are no idle farms
+    (can-build farm)
+    =>
+    (chat-local-to-self "building farm.")
+    (build farm)
 )
 
 ; research long swordsman
@@ -178,7 +198,23 @@
    (can-research ri-long-swordsman)
    =>
    (research ri-long-swordsman)
-   (chat-to-allies "Researching Long Swordsman.")
+   (chat-local-to-self "Researching Long Swordsman.")
+)
+
+; research two-handed-swordsman
+(defrule
+   (can-research ri-two-handed-swordsman)
+   =>
+   (research ri-two-handed-swordsman)
+   (chat-local-to-self "Researching two-handed-swordsman.")
+)
+
+;start trining militia after feudal.
+(defrule
+   (current-age > dark-age)  
+   (can-train militiaman-line)
+   =>
+   (train militiaman-line)
 )
 
 (defrule
