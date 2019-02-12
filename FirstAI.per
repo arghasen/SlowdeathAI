@@ -12,10 +12,6 @@
 (defrule
    (true)
 =>
-   (set-strategic-number sn-food-gatherer-percentage 75)
-   (set-strategic-number sn-wood-gatherer-percentage 25)
-   (set-strategic-number sn-stone-gatherer-percentage 0)
-   (set-strategic-number sn-gold-gatherer-percentage 0)
    (set-strategic-number sn-maximum-food-drop-distance 4)
    (set-strategic-number sn-maximum-fish-boat-drop-distance 8)
    (set-strategic-number sn-maximum-wood-drop-distance 5)
@@ -23,6 +19,15 @@
    (set-strategic-number sn-maximum-stone-drop-distance 4)
    (set-strategic-number sn-maximum-hunt-drop-distance 5)
    (disable-self)
+)
+
+(defrule
+   (current-age == dark-age)
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 60)
+   (set-strategic-number sn-wood-gatherer-percentage 40)
+   (set-strategic-number sn-gold-gatherer-percentage 0)
+   (set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
 (defrule
@@ -63,7 +68,6 @@
 )
 
 (defrule
-(current-age == dark-age)
 (unit-type-count-total villager < 30)
 (can-train villager)
 =>
@@ -88,7 +92,6 @@
 )
 
 (defrule
-(current-age == dark-age)
 (building-type-count-total lumber-camp > 0) ; We want a lumber camp before farms
 (unit-type-count-total villager > 15)
 (building-type-count-total farm < 15)
