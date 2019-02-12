@@ -120,6 +120,7 @@
    (set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
+; build a gold mine in feudal age
 (defrule
     (current-age==feudal-age)  
     (building-type-count-total mining-camp == 0)
@@ -127,4 +128,47 @@
     (can-build mining-camp)
     =>
     (build mining-camp)
+)
+
+;build a barrack in feudal age
+(defrule
+   (current-age > dark-age)
+   (building-type-count-total barracks ==0)
+   (can-build barracks)
+   =>
+   (build barracks)
+)
+
+;start trining militia after feudal.
+(defrule
+   (current-age > dark-age)  
+   (can-train militiaman-line)
+   =>
+   (train militiaman-line)
+)
+
+; research man at arms
+(defrule
+   (can-research ri-man-at-arms)
+   =>
+   (research ri-man-at-arms)
+   (chat-to-allies "Researching man at arms.")
+)
+; build a blacksmith
+(defrule
+   (current-age >= feudal-age)
+   (building-type-count-total barracks > 0)
+   (building-type-count-total blacksmith == 0)
+   (can-build blacksmith)
+   =>
+   (build blacksmith)
+)
+; build a market
+(defrule
+   (current-age == feudal-age)
+   (building-type-count-total blacksmith > 0)
+   (building-type-count-total market ==0)
+   (can-build market)
+   =>
+   (build market)
 )
