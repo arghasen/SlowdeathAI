@@ -31,10 +31,10 @@
 )
 
 (defrule
-(unit-type-count villager > 0 )
-=>
-(chat-local-to-self "I just made my first rule!!")
-(disable-self)
+    (unit-type-count villager > 0 )
+    =>
+    (chat-local-to-self "I just made my first rule!!")
+    (disable-self)
 )
 
 (defrule
@@ -59,19 +59,19 @@
 )
 
 (defrule
-(can-build house)
-(housing-headroom < 4) ;the difference between the current population and supportable population (not the
-;amount of population houses support)
-(population-headroom > 3) ;the difference between the current population and the population limit
-=>
-(build house)
+    (can-build house)
+    (housing-headroom < 4) ;the difference between the current population and supportable population (not the
+    ;amount of population houses support)
+    (population-headroom > 3) ;the difference between the current population and the population limit
+    =>
+    (build house)
 )
 
 (defrule
-(unit-type-count-total villager < 30)
-(can-train villager)
-=>
-(train villager)
+    (unit-type-count-total villager < 30)
+    (can-train villager)
+    =>
+    (train villager)
 )
 
 (defrule
@@ -83,29 +83,30 @@
 )
 
 (defrule
-(building-type-count-total house > 0) ; We want to build a house before a mill
-(building-type-count-total mill == 0) ; Prevents the construction of multiple mills
-(resource-found food) ; Builds a mill only if forage bushes or deer is found
-(can-build mill)
-=>
-(build mill)
+    (building-type-count-total house > 0) ; We want to build a house before a mill
+    (building-type-count-total mill == 0) ; Prevents the construction of multiple mills
+    (resource-found food) ; Builds a mill only if forage bushes or deer is found
+    (can-build mill)
+    =>
+    (build mill)
 )
 
 (defrule
-(building-type-count-total lumber-camp == 0)
-(resource-found wood)
-(can-build lumber-camp)
-=>
-(build lumber-camp)
+    (building-type-count-total lumber-camp == 0)
+    (resource-found wood)
+    (can-build lumber-camp)
+    =>
+    (build lumber-camp)
 )
 
 (defrule
-(building-type-count-total lumber-camp > 0) ; We want a lumber camp before farms
-(unit-type-count-total villager > 15)
-(building-type-count-total farm < 15)
-(idle-farm-count < 4) ; Only build farms if there are less than 4 idle farms
-(can-build farm)
-=>
-(build farm)
+    (current-age == dark-age)
+    (building-type-count-total mill > 0);build mill before farms
+    (building-type-count-total lumber-camp > 0) ; We want a lumber camp before farms
+    (unit-type-count-total villager > 15)
+    (building-type-count-total farm < 15)
+    (idle-farm-count < 4) ; Only build farms if there are less than 4 idle farms
+    (can-build farm)
+    =>
+    (build farm)
 )
-
