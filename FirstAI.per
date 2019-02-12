@@ -172,3 +172,17 @@
    =>
    (build market)
 )
+
+; research long swordsman
+(defrule
+   (can-research ri-long-swordsman)
+   =>
+   (research ri-long-swordsman)
+   (chat-to-allies "Researching Long Swordsman.")
+)
+
+(defrule
+(military-population >= 10)
+=>
+(attack-now)
+)
