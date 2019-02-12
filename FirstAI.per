@@ -10,10 +10,47 @@
 )
 
 (defrule
+   (true)
+=>
+   (set-strategic-number sn-food-gatherer-percentage 75)
+   (set-strategic-number sn-wood-gatherer-percentage 25)
+   (set-strategic-number sn-stone-gatherer-percentage 0)
+   (set-strategic-number sn-gold-gatherer-percentage 0)
+   (set-strategic-number sn-maximum-food-drop-distance 4)
+   (set-strategic-number sn-maximum-fish-boat-drop-distance 8)
+   (set-strategic-number sn-maximum-wood-drop-distance 5)
+   (set-strategic-number sn-maximum-gold-drop-distance 4)
+   (set-strategic-number sn-maximum-stone-drop-distance 4)
+   (set-strategic-number sn-maximum-hunt-drop-distance 5)
+   (disable-self)
+)
+
+(defrule
 (unit-type-count villager > 0 )
 =>
 (chat-local-to-self "I just made my first rule!!")
 (disable-self)
+)
+
+(defrule
+   (can-research feudal-age)
+   =>
+   (research feudal-age)
+   (chat-local-to-self "Feudal Age, here we come!")
+)
+
+(defrule
+   (can-research castle-age)
+   =>
+   (research castle-age)
+   (chat-local-to-self "Castle Age, here we come!")
+)
+
+(defrule
+   (can-research imperial-age)
+   =>
+   (research imperial-age)
+   (chat-local-to-self "Imperial Age, here we come!")
 )
 
 (defrule
@@ -61,10 +98,3 @@
 (build farm)
 )
 
-(defrule
-(current-age == dark-age)
-(can-research feudal-age)
-=>
-(research feudal-age)
-(chat-local-to-self "Feudal Age, here we come!")
-)
