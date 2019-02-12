@@ -110,3 +110,21 @@
     =>
     (build farm)
 )
+
+(defrule
+   (current-age==feudal-age)  
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 40)
+   (set-strategic-number sn-wood-gatherer-percentage 50)
+   (set-strategic-number sn-gold-gatherer-percentage 10)
+   (set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
+(defrule
+    (current-age==feudal-age)  
+    (building-type-count-total mining-camp == 0)
+    (resource-found gold)
+    (can-build mining-camp)
+    =>
+    (build mining-camp)
+)
