@@ -12,14 +12,15 @@
 (defrule
    (true)
 =>
-   (set-strategic-number sn-maximum-food-drop-distance 15)
-   (set-strategic-number sn-maximum-wood-drop-distance 15)
-   (set-strategic-number sn-maximum-stone-drop-distance 25)
-   (set-strategic-number sn-maximum-gold-drop-distance 25)
-   (set-strategic-number sn-maximum-hunt-drop-distance 15)
-   (set-strategic-number sn-maximum-fish-boat-drop-distance 15)
-   (set-strategic-number sn-mill-max-distance 15)
-   (disable-self)
+    (set-strategic-number sn-maximum-food-drop-distance 15)
+    (set-strategic-number sn-maximum-wood-drop-distance 15)
+    (set-strategic-number sn-maximum-stone-drop-distance 25)
+    (set-strategic-number sn-maximum-gold-drop-distance 25)
+    (set-strategic-number sn-maximum-hunt-drop-distance 15)
+    (set-strategic-number sn-maximum-fish-boat-drop-distance 15)
+    (set-strategic-number sn-mill-max-distance 15)
+    (set-strategic-number sn-cap-civilian-builders 4) ;max number of builders
+    (disable-self)
 )
 
 (defrule
@@ -32,12 +33,31 @@
 )
 
 (defrule
+   (current-age == feudal-age)  
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 50)
+   (set-strategic-number sn-wood-gatherer-percentage 35)
+   (set-strategic-number sn-gold-gatherer-percentage 15)
+   (set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
+(defrule
+   (current-age == castle-age)  
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 45)
+   (set-strategic-number sn-wood-gatherer-percentage 35)
+   (set-strategic-number sn-gold-gatherer-percentage 15)
+   (set-strategic-number sn-stone-gatherer-percentage 5)
+)
+
+(defrule
     (unit-type-count villager > 0 )
     =>
     (chat-local-to-self "I just made my first rule!!")
     (disable-self)
 )
 
+;################### Age Advance rules
 (defrule
    (can-research feudal-age)
    =>
@@ -60,6 +80,15 @@
 )
 
 (defrule
+   (food-amount < 50)
+   (can-research ri-loom)
+   =>
+   (research ri-loom)
+   (chat-local-to-self "Researching loom.")
+)
+
+;################################## building rules 
+(defrule
     (can-build house)
     (housing-headroom < 4) ;the difference between the current population and supportable population (not the
     ;amount of population houses support)
@@ -74,14 +103,6 @@
     (can-train villager)
     =>
     (train villager)
-)
-
-(defrule
-   (food-amount < 50)
-   (can-research ri-loom)
-   =>
-   (research ri-loom)
-   (chat-local-to-self "Researching loom.")
 )
 
 (defrule
@@ -109,15 +130,6 @@
    (can-build lumber-camp)
    =>
    (build lumber-camp)
-)
-
-(defrule
-   (current-age == feudal-age)  
-   =>
-   (set-strategic-number sn-food-gatherer-percentage 50)
-   (set-strategic-number sn-wood-gatherer-percentage 40)
-   (set-strategic-number sn-gold-gatherer-percentage 10)
-   (set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
 ; build a gold mine in feudal age
@@ -169,6 +181,18 @@
    (build market)
 )
 
+; build a stone mine in castle age
+(defrule
+    (current-age == feudal-age)  
+    (building-type-count-total mining-camp > 0)
+    (resource-found stone)
+    (dropsite-min-distance stone > 5)
+    (can-build mining-camp)
+    =>
+    (chat-local-to-self "building mining-camp.")
+    (build mining-camp)
+)
+
 ; build a monastery
 (defrule
    (current-age == castle-age)
@@ -188,7 +212,8 @@
    (chat-local-to-self "building university.")
    (build university)
 )
-;########################### Farms#########################
+
+;########################### Farms #########################
 ; keep farms at lower priority than buildings
 (defrule
     (building-type-count-total mill > 0);build mill before farms
