@@ -373,6 +373,32 @@
    (research ri-halberdier)
    (chat-local-to-self "Researching halberdier.")
 )
+(defrule
+   (can-research ri-plate-mail)
+   =>
+   (research ri-plate-mail)
+   (chat-to-allies "Researching plate mail armor.")
+)
+
+(defrule
+   (can-research ri-blast-furnace)
+   =>
+   (research ri-blast-furnace)
+   (chat-to-allies "Researching blast furnace.")
+)
+(defrule
+   (current-age > castle-age)
+   (can-research ri-tracking)
+   =>
+   (research ri-tracking)
+)
+
+(defrule
+   (current-age > castle-age)   
+   (can-research ri-squires)
+   =>
+   (research ri-squires)
+)
 ;start trining militia after feudal.
 (defrule
    (current-age > dark-age)  
