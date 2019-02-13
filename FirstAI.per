@@ -87,6 +87,63 @@
    (chat-local-to-self "Researching loom.")
 )
 
+;***************************** Feudal Age Research ****************************
+
+(defrule
+   (can-research ri-wheel-barrow)
+   =>
+   (research ri-wheel-barrow)
+   (chat-to-allies "Researching wheel barrow.")
+)
+
+(defrule
+   (can-research ri-man-at-arms)
+   =>
+   (research ri-man-at-arms)
+   (chat-to-allies "Researching man at arms.")
+)
+
+(defrule
+   (not(research-available ri-wheel-barrow))
+   (not(research-available ri-man-at-arms))
+   (can-research ri-double-bit-axe)
+   =>
+   (research ri-double-bit-axe)
+   (chat-to-allies "Researching double bit axe.")
+)
+
+(defrule
+   (not(research-available ri-double-bit-axe))
+   (can-research ri-gold-mining)
+   =>
+   (research ri-gold-mining)
+   (chat-to-allies "Researching gold mining.")
+)
+
+(defrule
+   (not(research-available ri-gold-mining))
+   (can-research ri-horse-collar)
+   =>
+   (research ri-horse-collar)
+   (chat-to-allies "Researching horse collar.")
+)
+
+(defrule
+   (not(research-available ri-man-at-arms))
+   (can-research ri-scale-mail)
+   =>
+   (research ri-scale-mail)
+   (chat-to-allies "Researching scale mail armor.")
+)
+
+(defrule
+   (research-completed ri-scale-mail)
+   (can-research ri-forging)
+   =>
+   (research ri-forging)
+   (chat-to-allies "Researching forging.")
+)
+
 ;################################## building rules 
 (defrule
     (can-build house)
@@ -153,13 +210,7 @@
    (build barracks)
 )
 
-; research man at arms
-(defrule
-   (can-research ri-man-at-arms)
-   =>
-   (chat-local-to-self "Researching man at arms.")
-   (research ri-man-at-arms)
-)
+
 ; build a blacksmith
 (defrule
    (current-age >= feudal-age)
@@ -227,7 +278,6 @@
     (build farm)
 )
 
-()
 ; research long swordsman
 (defrule
    (can-research ri-long-swordsman)
