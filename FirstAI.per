@@ -143,6 +143,48 @@
    (research ri-forging)
    (chat-to-allies "Researching forging.")
 )
+; ################################## Castle Age Research
+(defrule
+   (can-research ri-hand-cart)
+   =>
+   (research ri-hand-cart)
+   (chat-to-allies "Researching hand cart.")
+)
+
+(defrule
+   (can-research ri-bow-saw)
+   =>
+   (research ri-bow-saw)
+   (chat-to-allies "Researching bow saw.")
+)
+
+(defrule
+   (can-research ri-gold-shaft-mining)
+   =>
+   (research ri-gold-shaft-mining)
+   (chat-to-allies "Researching gold shaft mining.")
+)
+
+(defrule
+   (can-research ri-heavy-plow)
+   =>
+   (research ri-heavy-plow)
+   (chat-to-allies "Researching heavy plow.")
+)
+
+(defrule
+   (can-research ri-chain-mail)
+   =>
+   (research ri-chain-mail)
+   (chat-to-allies "Researching chain mail armor.")
+)
+
+(defrule
+   (can-research ri-iron-casting)
+   =>
+   (research ri-iron-casting)
+   (chat-to-allies "Researching iron casting.")
+)
 
 ;################################## building rules 
 (defrule
@@ -210,7 +252,6 @@
    (build barracks)
 )
 
-
 ; build a blacksmith
 (defrule
    (current-age >= feudal-age)
@@ -272,6 +313,16 @@
    (chat-local-to-self "building castle.")
    (build castle)
 )
+
+;build a barracks in imperial age
+(defrule
+   (current-age > castle-age)
+   (building-type-count-total barracks == 1)
+   (can-build barracks)
+   =>
+   (chat-local-to-self "building barracks.")
+   (build barracks)
+)
 ;########################### Farms #########################
 ; keep farms at lower priority than buildings
 (defrule
@@ -308,6 +359,20 @@
    (research ri-champion)
    (chat-local-to-self "Researching champion.")
 )
+; research pikeman
+(defrule
+   (can-research ri-pikeman)
+   =>
+   (research ri-pikeman)
+   (chat-local-to-self "Researching pikeman.")
+)
+; research Halberdier 
+(defrule
+   (can-research ri-halberdier )
+   =>
+   (research ri-halberdier)
+   (chat-local-to-self "Researching halberdier.")
+)
 ;start trining militia after feudal.
 (defrule
    (current-age > dark-age)  
@@ -315,9 +380,14 @@
    =>
    (train militiaman-line)
 )
-
 (defrule
-(military-population >= 10)
+   (current-age > castle-age)  
+   (can-train spearman-line)
+   =>
+   (train spearman-line)
+)
+(defrule
+(military-population >= 20)
 =>
 (attack-now)
 )
