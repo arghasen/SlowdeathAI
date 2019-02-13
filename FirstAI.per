@@ -103,6 +103,14 @@
 )
 
 (defrule
+   (current-age >= feudal-age)
+   (dropsite-min-distance wood > 5)
+   (can-build lumber-camp)
+   =>
+   (build lumber-camp)
+)
+
+(defrule
    (current-age == feudal-age)  
    =>
    (set-strategic-number sn-food-gatherer-percentage 50)
@@ -160,14 +168,14 @@
    (build market)
 )
 
-; build a monastry
+; build a monastery
 (defrule
    (current-age == castle-age)
-   (building-type-count-total monastry == 0)
-   (can-build monastry)
+   (building-type-count-total monastery == 0)
+   (can-build monastery)
    =>
-   (chat-local-to-self "building monastry.")
-   (build monastry)
+   (chat-local-to-self "building monastery.")
+   (build monastery)
 )
 
 ; build a university
@@ -179,7 +187,7 @@
    (chat-local-to-self "building university.")
    (build university)
 )
-
+;########################### Farms#########################
 ; keep farms at lower priority than buildings
 (defrule
     (building-type-count-total mill > 0);build mill before farms
@@ -193,6 +201,7 @@
     (build farm)
 )
 
+()
 ; research long swordsman
 (defrule
    (can-research ri-long-swordsman)
