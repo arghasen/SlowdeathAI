@@ -399,6 +399,12 @@
    =>
    (research ri-squires)
 )
+(defrule
+   (current-age > castle-age)   
+   (can-research ri-arson)
+   =>
+   (research ri-arson)
+)
 ;start trining militia after feudal.
 (defrule
    (current-age > dark-age)  
