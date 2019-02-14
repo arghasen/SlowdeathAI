@@ -65,7 +65,15 @@
    (set-strategic-number sn-stone-gatherer-percentage 5)
       (set-strategic-number sn-maximum-town-size 25)
 )
-
+(defrule
+   (current-age == imperial-age)  
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 50)
+   (set-strategic-number sn-wood-gatherer-percentage 30)
+   (set-strategic-number sn-gold-gatherer-percentage 15)
+   (set-strategic-number sn-stone-gatherer-percentage 5)
+   (set-strategic-number sn-maximum-town-size 36)
+)
 (defrule
     (unit-type-count villager > 0 )
     =>
@@ -323,7 +331,7 @@
 
 (defrule
    (current-age == castle-age)
-   (building-type-count-total university == 0)
+   (building-type-count-total university == 1)
    (can-build castle)
    =>
    (chat-local-to-self "building castle.")
@@ -333,7 +341,7 @@
 ;build upto barracks in imperial age
 (defrule
    (current-age > castle-age)
-   (building-type-count-total barracks ==1)
+   (building-type-count-total barracks < 10)
    (can-build barracks)
    =>
    (chat-local-to-self "building barracks.")
@@ -403,7 +411,12 @@
    (chat-to-allies "Researching blast furnace.")
 )
 
-
+(defrule
+   (can-research ri-conscription)
+   =>
+   (research ri-conscription)
+   (chat-to-allies "Researching conscription.")
+)
 (defrule
    (current-age > castle-age)
    (can-research ri-tracking)
