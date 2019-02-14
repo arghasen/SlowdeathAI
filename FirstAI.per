@@ -41,8 +41,8 @@
 (defrule
    (current-age == dark-age)
    =>
-   (set-strategic-number sn-food-gatherer-percentage 70)
-   (set-strategic-number sn-wood-gatherer-percentage 30)
+   (set-strategic-number sn-food-gatherer-percentage 60)
+   (set-strategic-number sn-wood-gatherer-percentage 40)
    (set-strategic-number sn-gold-gatherer-percentage 0)
    (set-strategic-number sn-stone-gatherer-percentage 0)
 )
@@ -266,9 +266,9 @@
     (build mining-camp)
 )
 
-;build a barrack in feudal age
+;build a barrack in dark age
 (defrule
-   (current-age > dark-age)
+   (current-age == dark-age)
    (building-type-count-total barracks == 0)
    (can-build barracks)
    =>
@@ -329,6 +329,14 @@
    (build university)
 )
 
+(defrule
+   (current-age == castle-age)
+   (building-type-count-total town-center < 2)
+   (can-build town-center)
+   =>
+   (chat-local-to-self "building town-center.")
+   (build town-center)
+)
 (defrule
    (current-age == castle-age)
    (building-type-count-total university == 1)
@@ -439,7 +447,7 @@
 ;start trining militia after feudal.
 (defrule
    (current-age > dark-age)
-   (military-population<=6)  
+   (military-population <= 6)  
    (can-train militiaman-line)
    =>
    (train militiaman-line)
@@ -447,7 +455,7 @@
 
 (defrule
    (current-age > feudal-age)
-   (military-population<=12)  
+   (military-population <= 12)  
    (can-train militiaman-line)
    =>
    (train militiaman-line)
