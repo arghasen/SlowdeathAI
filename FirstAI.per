@@ -137,6 +137,7 @@
 )
 
 (defrule
+   (current-age == castle-age)
    (not(research-available ri-double-bit-axe))
    (can-research ri-gold-mining)
    =>
@@ -145,7 +146,6 @@
 )
 
 (defrule
-   (not(research-available ri-gold-mining))
    (can-research ri-horse-collar)
    =>
    (research ri-horse-collar)
@@ -153,6 +153,7 @@
 )
 
 (defrule
+   (current-age == castle-age)
    (not(research-available ri-man-at-arms))
    (can-research ri-scale-mail)
    =>
@@ -161,6 +162,7 @@
 )
 
 (defrule
+   (current-age == castle-age)
    (research-completed ri-scale-mail)
    (can-research ri-forging)
    =>
@@ -208,6 +210,38 @@
    =>
    (research ri-iron-casting)
    (chat-to-allies "Researching iron casting.")
+)
+;#################################Market Rules#######################
+(defrule
+   (current-age == feudal-age)  
+   (wood-amount > 400)
+   (or(gold-amount < 200)
+      (food-amount < 800))
+   (can-sell-commodity wood)
+   =>
+   (sell-commodity wood)
+)
+
+;Buy food if you have surplus gold.
+
+(defrule
+   (current-age == feudal-age)  
+   (gold-amount > 400)
+   (food-amount < 800)
+   (can-buy-commodity food)
+   =>
+   (buy-commodity food)
+)
+
+;Sell food if you have surplus food.
+
+(defrule
+   (current-age == feudal-age)  
+   (gold-amount < 200)
+   (food-amount > 1000)
+   (can-sell-commodity food)
+   =>
+   (sell-commodity food)
 )
 
 ;################################## building rules 
@@ -447,7 +481,7 @@
 ;start trining militia after feudal.
 (defrule
    (current-age > dark-age)
-   (military-population <= 6)  
+   (military-population <= 4)  
    (can-train militiaman-line)
    =>
    (train militiaman-line)
