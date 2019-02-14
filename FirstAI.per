@@ -438,12 +438,26 @@
 )
 ;start trining militia after feudal.
 (defrule
-   (current-age > castle-age)  
+   (current-age > dark-age)
+   (military-population<=6)  
    (can-train militiaman-line)
    =>
    (train militiaman-line)
 )
 
+(defrule
+   (current-age > feudal-age)
+   (military-population<=12)  
+   (can-train militiaman-line)
+   =>
+   (train militiaman-line)
+)
+(defrule
+   (current-age > castle-age)
+   (can-train militiaman-line)
+   =>
+   (train militiaman-line)
+)
 (defrule
    (current-age > castle-age)  
    (can-train spearman-line)
