@@ -24,10 +24,25 @@
 )
 
 (defrule
+   (true)
+   =>
+   (set-strategic-number sn-gold-defend-priority 1)
+   (set-strategic-number sn-stone-defend-priority 0)
+   (set-strategic-number sn-forage-defend-priority 0)
+   (set-strategic-number sn-relic-defend-priority 0)
+   (set-strategic-number sn-town-defend-priority 0)
+   (set-strategic-number sn-task-ungrouped-soldiers 0) ; dont scatter villagers
+   (set-strategic-number sn-gather-idle-soldiers-at-center 0); useful for stopping tsa. how? 
+   (set-strategic-number sn-minimum-town-size 1) ; defend enemy attack
+   (set-strategic-number sn-maximum-town-size 16)
+   (set-strategic-number sn-enemy-sighted-response-distance 2)
+   (disable-self)
+)
+(defrule
    (current-age == dark-age)
    =>
-   (set-strategic-number sn-food-gatherer-percentage 60)
-   (set-strategic-number sn-wood-gatherer-percentage 40)
+   (set-strategic-number sn-food-gatherer-percentage 70)
+   (set-strategic-number sn-wood-gatherer-percentage 30)
    (set-strategic-number sn-gold-gatherer-percentage 0)
    (set-strategic-number sn-stone-gatherer-percentage 0)
 )
@@ -35,8 +50,8 @@
 (defrule
    (current-age == feudal-age)  
    =>
-   (set-strategic-number sn-food-gatherer-percentage 50)
-   (set-strategic-number sn-wood-gatherer-percentage 35)
+   (set-strategic-number sn-food-gatherer-percentage 55)
+   (set-strategic-number sn-wood-gatherer-percentage 30)
    (set-strategic-number sn-gold-gatherer-percentage 15)
    (set-strategic-number sn-stone-gatherer-percentage 0)
 )
@@ -44,10 +59,11 @@
 (defrule
    (current-age == castle-age)  
    =>
-   (set-strategic-number sn-food-gatherer-percentage 45)
-   (set-strategic-number sn-wood-gatherer-percentage 35)
+   (set-strategic-number sn-food-gatherer-percentage 50)
+   (set-strategic-number sn-wood-gatherer-percentage 30)
    (set-strategic-number sn-gold-gatherer-percentage 15)
    (set-strategic-number sn-stone-gatherer-percentage 5)
+      (set-strategic-number sn-maximum-town-size 25)
 )
 
 (defrule
@@ -314,10 +330,10 @@
    (build castle)
 )
 
-;build a barracks in imperial age
+;build upto barracks in imperial age
 (defrule
    (current-age > castle-age)
-   (building-type-count-total barracks == 1)
+   (building-type-count-total barracks ==1)
    (can-build barracks)
    =>
    (chat-local-to-self "building barracks.")
@@ -386,6 +402,8 @@
    (research ri-blast-furnace)
    (chat-to-allies "Researching blast furnace.")
 )
+
+
 (defrule
    (current-age > castle-age)
    (can-research ri-tracking)
@@ -407,19 +425,21 @@
 )
 ;start trining militia after feudal.
 (defrule
-   (current-age > dark-age)  
+   (current-age > castle-age)  
    (can-train militiaman-line)
    =>
    (train militiaman-line)
 )
+
 (defrule
    (current-age > castle-age)  
    (can-train spearman-line)
    =>
    (train spearman-line)
 )
+; be conservative as standard AI doesnt attack much
 (defrule
-(military-population >= 20)
+(military-population >= 80)
 =>
 (attack-now)
 )
