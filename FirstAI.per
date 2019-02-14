@@ -211,9 +211,22 @@
    (research ri-iron-casting)
    (chat-to-allies "Researching iron casting.")
 )
+(defrule
+   (can-research ri-guilds)
+   =>
+   (research ri-guilds)
+   (chat-to-allies "Researching guilds.")
+)
+
+(defrule
+   (building-type-count-total castle > 0)
+   (can-research ri-murder-holes)
+   =>
+   (research ri-murder-holes)
+)
 ;#################################Market Rules#######################
 (defrule
-   (current-age == feudal-age)  
+   (current-age >= feudal-age)  
    (wood-amount > 400)
    (or(gold-amount < 200)
       (food-amount < 800))
@@ -225,7 +238,7 @@
 ;Buy food if you have surplus gold.
 
 (defrule
-   (current-age == feudal-age)  
+   (current-age >= feudal-age)  
    (gold-amount > 400)
    (food-amount < 800)
    (can-buy-commodity food)
@@ -236,7 +249,7 @@
 ;Sell food if you have surplus food.
 
 (defrule
-   (current-age == feudal-age)  
+   (current-age >= feudal-age)  
    (gold-amount < 200)
    (food-amount > 1000)
    (can-sell-commodity food)
@@ -255,6 +268,15 @@
     (build house)
 )
 
+(defrule
+    (can-build house)
+    (housing-headroom < 15)
+    (building-type-count barracks>2)
+    (population-headroom > 3) ;the difference between the current population and the population limit
+    =>
+    (chat-local-to-self "building house.")
+    (build house)
+)
 (defrule
     (unit-type-count-total villager < 100)
     (can-train villager)
@@ -364,15 +386,16 @@
 )
 
 (defrule
-   (current-age == castle-age)
+   (current-age >= castle-age)
    (building-type-count-total town-center < 2)
    (can-build town-center)
    =>
    (chat-local-to-self "building town-center.")
    (build town-center)
 )
+
 (defrule
-   (current-age == castle-age)
+   (current-age >= castle-age)
    (building-type-count-total university == 1)
    (can-build castle)
    =>
