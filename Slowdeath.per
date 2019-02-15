@@ -279,7 +279,17 @@
 #end-if
 
 (defrule
+    (building-type-count-total lumber-camp == 0)
+    (resource-found wood)
+    (can-build lumber-camp)
+    =>
+    (chat-local-to-self "building lumbercamp.")
+    (build lumber-camp)
+)
+
+(defrule
     (building-type-count-total house > 0) ; We want to build a house before a mill
+    (building-type-count-total lumber-camp > 0)
     (building-type-count-total mill == 0) ; Prevents the construction of multiple mills
     (resource-found food) ; Builds a mill only if forage bushes or deer is found
     (can-build mill)
@@ -289,12 +299,16 @@
 )
 
 (defrule
-    (building-type-count-total lumber-camp == 0)
-    (resource-found wood)
-    (can-build lumber-camp)
-    =>
-    (chat-local-to-self "building lumbercamp.")
-    (build lumber-camp)
+   (or(current-age > dark-age)
+      (goal g-age-status gv-advancing-to-feudal)) ;New in Training2
+   (resource-found gold)
+   (building-type-count mining-camp < 4)
+   (cc-players-unit-type-count 0 66 > 0)
+   (dropsite-min-distance gold > 5)
+   (dropsite-min-distance gold < 255)
+   (can-build mining-camp)
+   =>
+   (build mining-camp)
 )
 
 ; keep farms at lower priority than buildings
