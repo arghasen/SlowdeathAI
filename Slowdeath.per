@@ -3,7 +3,7 @@
 ; Defconst Rules 
 ;
 ;******************************************************************************
-(defconst num-dark-age-villagers 30)
+(defconst dark-age-max-villagers 30)
 (defconst town-center-foundation 621)
 
 ;******************************************************************************
@@ -50,7 +50,7 @@
 (disable-self)
 )
 
-((defrule
+(defrule
    (true)
    =>
    (set-strategic-number sn-camp-max-distance 8)
@@ -297,12 +297,47 @@
     (build lumber-camp)
 )
 
+; keep farms at lower priority than buildings
+(defrule
+    (goal g-age-status gv-dark-age) 
+    (building-type-count-total mill > 0);build mill before farms
+    (building-type-count-total lumber-camp > 0) ; We want a lumber camp before farms
+    (or(building-type-count-total farm < 15)
+        (idle-farm-count == 0))
+    (can-build farm)
+    =>
+    (chat-local-to-self "building farm.")
+    (build farm)
+)
+
+(defrule
+   (or(current-age > dark-age)
+      (goal g-age-status gv-advancing-to-feudal))  
+   (idle-farm-count == 0)
+   (can-build farm)
+   =>
+   (build farm)
+)
 ;******************************************************************************
 ;
 ; Training Rules
 ;
 ;******************************************************************************
+(defrule
+   (current-age == dark-age) 
+   (unit-type-count-total villager < dark-age-max-villagers) 
+   (can-train villager)
+   =>
+   (train villager)
+)
 
+(defrule                     
+   (current-age > dark-age) 
+   (unit-type-count-total villager < 100)
+   (can-train villager)
+   =>
+   (train villager)
+)
 ;******************************************************************************
 ;
 ; Taunting Rules
