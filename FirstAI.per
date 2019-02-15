@@ -176,7 +176,7 @@
 
 (defrule
    (current-age == castle-age)
-   (not(research-available ri-man-at-arms))
+   (not(research-available ri-pikeman))
    (can-research ri-scale-mail)
    =>
    (research ri-scale-mail)
@@ -430,6 +430,18 @@
     (building-type-count-total mining-camp > 0)
     (resource-found stone)
     (dropsite-min-distance stone > 5)
+    (can-build mining-camp)
+    =>
+    (chat-local-to-self "building mining-camp.")
+    (build mining-camp)
+)
+
+; 2nd mining camp for gold if necessary
+(defrule
+    (current-age == feudal-age)  
+    (building-type-count-total mining-camp > 0)
+    (resource-found stone)
+    (dropsite-min-distance gold > 5)
     (can-build mining-camp)
     =>
     (chat-local-to-self "building mining-camp.")
