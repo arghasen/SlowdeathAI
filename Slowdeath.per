@@ -301,7 +301,7 @@
 (defrule
     (goal g-age-status gv-dark-age) 
     (building-type-count-total mill > 0);build mill before farms
-    (building-type-count-total lumber-camp > 0) ; We want a lumber camp before farms
+    (building-type-count lumber-camp > 0) ; We want a lumber camp before farms
     (or(building-type-count-total farm < 15)
         (idle-farm-count == 0))
     (can-build farm)
@@ -316,6 +316,7 @@
    (idle-farm-count == 0)
    (can-build farm)
    =>
+   (chat-local-to-self "building farm too.")
    (build farm)
 )
 ;******************************************************************************
