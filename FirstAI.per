@@ -224,6 +224,35 @@
    =>
    (research ri-murder-holes)
 )
+; add fletching if attacked
+(defrule
+   (town-under-attack)
+   (can-research ri-fletching)
+   =>
+   (research ri-fletching)
+   (chat-to-allies "Researching fletching.")
+)
+(defrule
+   (town-under-attack)
+   (can-research ri-bodkin-arrow)
+   =>
+   (research ri-bodkin-arrow)
+   (chat-to-allies "Researching bodkin-arrow.")
+)
+(defrule
+   (town-under-attack)
+   (can-research ri-bracer)
+   =>
+   (research ri-bracer)
+   (chat-to-allies "Researching bracer.")
+)
+(defrule
+   (current-age > feudal-age)
+   (can-research ri-stone-mining)
+   =>
+   (research ri-stone-mining)
+   (chat-to-allies "Researching stone mining.")
+)
 ;#################################Market Rules#######################
 (defrule
    (current-age >= feudal-age)  
