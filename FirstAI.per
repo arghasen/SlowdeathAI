@@ -52,8 +52,8 @@
    =>
    (set-strategic-number sn-food-gatherer-percentage 55)
    (set-strategic-number sn-wood-gatherer-percentage 30)
-   (set-strategic-number sn-gold-gatherer-percentage 15)
-   (set-strategic-number sn-stone-gatherer-percentage 0)
+   (set-strategic-number sn-gold-gatherer-percentage 10)
+   (set-strategic-number sn-stone-gatherer-percentage 5)
 )
 
 (defrule
@@ -224,35 +224,6 @@
    =>
    (research ri-murder-holes)
 )
-; add fletching if attacked
-(defrule
-   (town-under-attack)
-   (can-research ri-fletching)
-   =>
-   (research ri-fletching)
-   (chat-to-allies "Researching fletching.")
-)
-(defrule
-   (town-under-attack)
-   (can-research ri-bodkin-arrow)
-   =>
-   (research ri-bodkin-arrow)
-   (chat-to-allies "Researching bodkin-arrow.")
-)
-(defrule
-   (town-under-attack)
-   (can-research ri-bracer)
-   =>
-   (research ri-bracer)
-   (chat-to-allies "Researching bracer.")
-)
-(defrule
-   (current-age > feudal-age)
-   (can-research ri-stone-mining)
-   =>
-   (research ri-stone-mining)
-   (chat-to-allies "Researching stone mining.")
-)
 ;#################################Market Rules#######################
 (defrule
    (current-age >= feudal-age)  
@@ -301,7 +272,7 @@
    (wood-amount > 1500)
    (can-sell-commodity wood)
    =>
-   (sell-commodity )
+   (sell-commodity wood)
 )
 ;################################## building rules 
 (defrule
@@ -433,7 +404,7 @@
 
 (defrule
    (current-age >= castle-age)
-   (building-type-count-total town-center < 2)
+   (building-type-count-total town-center < 3)
    (can-build town-center)
    =>
    (chat-local-to-self "building town-center.")
