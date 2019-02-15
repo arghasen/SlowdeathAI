@@ -246,7 +246,7 @@
    (chat-to-allies "Researching stone-shaft-mining.")
 )
 (defrule
-   (can-research ri-crop-rotaion)
+   (can-research ri-crop-rotation)
    =>
    (research ri-crop-rotation)
    (chat-to-allies "Researching crop-rotation")
@@ -263,6 +263,13 @@
    (can-research ri-murder-holes)
    =>
    (research ri-murder-holes)
+)
+
+(defrule
+   (building-type-count-total castle > 0)
+   (can-research ri-chemistry)
+   =>
+   (research ri-chemistry)
 )
 
 (defrule
@@ -290,7 +297,16 @@
 )
 
 (defrule
-   (current-age == castle-age)
+   
+   (can-research ri-masonry)
+   (town-under-attack)
+   =>
+   (research ri-masonry)
+   (chat-to-allies "Researching masonry.")
+)
+
+(defrule
+   (current-age >= castle-age)
    (can-research ri-stone-mining)
    =>
    (research ri-stone-mining)
@@ -414,6 +430,7 @@
 ;build a barrack in dark age
 (defrule
    (current-age == dark-age)
+   (game-time > 480)
    (building-type-count-total barracks == 0)
    (can-build barracks)
    =>
@@ -444,7 +461,7 @@
 
 ; build a stone mine in castle age
 (defrule
-    (current-age == feudal-age)  
+    (current-age >= feudal-age)  
     (building-type-count-total mining-camp > 0)
     (resource-found stone)
     (dropsite-min-distance stone > 5)
@@ -456,9 +473,9 @@
 
 ; 2nd mining camp for gold if necessary
 (defrule
-    (current-age == feudal-age)  
+    (current-age >= feudal-age)  
     (building-type-count-total mining-camp > 0)
-    (resource-found stone)
+    (resource-found gold)
     (dropsite-min-distance gold > 5)
     (can-build mining-camp)
     =>
