@@ -19,7 +19,7 @@
     (set-strategic-number sn-maximum-hunt-drop-distance 15)
     (set-strategic-number sn-maximum-fish-boat-drop-distance 15)
     (set-strategic-number sn-mill-max-distance 15)
-    (set-strategic-number sn-cap-civilian-builders 4) ;max number of builders
+    (set-strategic-number sn-cap-civilian-builders 10) ;max number of builders
     (disable-self)
 )
 
@@ -37,6 +37,28 @@
    (set-strategic-number sn-maximum-town-size 16)
    (set-strategic-number sn-enemy-sighted-response-distance 2)
    (disable-self)
+)
+
+(defrule
+	(true)
+=>
+	(up-assign-builders c: house c: 2)
+	(disable-self)
+)
+
+(defrule
+	(true)
+=>
+	(up-assign-builders c: castle c: 5)
+	(disable-self)
+)
+
+(defrule
+	(true)
+=>
+	(up-assign-builders c: 621 c: 4) ; town-center-foundation = 621
+	;(up-assign-builders c: town-center c: 4) ; error: this will not work
+	(disable-self)
 )
 (defrule
    (current-age == dark-age)
@@ -121,7 +143,7 @@
 )
 
 (defrule
-   (current-age == imperial-Age)
+   (current-age == imperial-age)
    (can-research ri-man-at-arms)
    =>
    (research ri-man-at-arms)
