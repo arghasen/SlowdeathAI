@@ -121,6 +121,7 @@
 )
 
 (defrule
+   (current-age == imperial-Age)
    (can-research ri-man-at-arms)
    =>
    (research ri-man-at-arms)
@@ -444,6 +445,7 @@
 
 ; research long swordsman
 (defrule
+   (current-age == imperial-age)
    (can-research ri-long-swordsman)
    =>
    (research ri-long-swordsman)
@@ -518,21 +520,13 @@
    =>
    (research ri-arson)
 )
-;start trining militia after feudal.
-(defrule
-   (current-age > dark-age)
-   (military-population <= 4)  
-   (can-train militiaman-line)
-   =>
-   (train militiaman-line)
-)
 
 (defrule
    (current-age > feudal-age)
-   (military-population <= 12)  
-   (can-train militiaman-line)
+   (military-population <= 10)  
+   (can-train spearman-line)
    =>
-   (train militiaman-line)
+   (train spearman-line)
 )
 (defrule
    (current-age > castle-age)
