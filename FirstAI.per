@@ -234,6 +234,24 @@
    (chat-to-allies "Researching iron casting.")
 )
 (defrule
+   (can-research ri-gold-shaft-mining)
+   =>
+   (research ri-gold-shaft-mining)
+   (chat-to-allies "Researching gold-shaft-mining.")
+)
+(defrule
+   (can-research ri-stone-shaft-mining)
+   =>
+   (research ri-stone-shaft-mining)
+   (chat-to-allies "Researching stone-shaft-mining.")
+)
+(defrule
+   (can-research ri-crop-rotaion)
+   =>
+   (research ri-crop-rotation)
+   (chat-to-allies "Researching crop-rotation")
+)
+(defrule
    (can-research ri-guilds)
    =>
    (research ri-guilds)
