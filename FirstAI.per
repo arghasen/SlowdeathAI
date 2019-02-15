@@ -257,6 +257,23 @@
    (sell-commodity food)
 )
 
+
+(defrule
+   (current-age == imperial-age)  
+   (gold-amount < 500)
+   (food-amount > 1500)
+   (can-sell-commodity food)
+   =>
+   (sell-commodity food)
+)
+(defrule
+   (current-age == imperial-age)  
+   (gold-amount < 800)
+   (wood-amount > 1500)
+   (can-sell-commodity wood)
+   =>
+   (sell-commodity )
+)
 ;################################## building rules 
 (defrule
     (can-build house)
@@ -271,7 +288,7 @@
 (defrule
     (can-build house)
     (housing-headroom < 15)
-    (building-type-count barracks>2)
+    (building-type-count barracks > 2)
     (population-headroom > 3) ;the difference between the current population and the population limit
     =>
     (chat-local-to-self "building house.")
