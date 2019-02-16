@@ -114,6 +114,13 @@
 )
 
 (defrule
+	(building-type-count-total house > 1)
+=>
+	(up-assign-builders c: house c: 1)
+	(disable-self)
+)
+
+(defrule
 	(true)
 =>
 	(up-assign-builders c: castle c: 5)
@@ -313,8 +320,8 @@
 (defrule
     (goal g-age-status gv-castle-age) 
     =>
-    (set-strategic-number sn-food-gatherer-percentage 50)
-    (set-strategic-number sn-wood-gatherer-percentage 30)
+    (set-strategic-number sn-food-gatherer-percentage 40)
+    (set-strategic-number sn-wood-gatherer-percentage 40)
     (set-strategic-number sn-gold-gatherer-percentage 15)
     (set-strategic-number sn-stone-gatherer-percentage 5)
     (set-strategic-number sn-maximum-town-size 25)
@@ -486,13 +493,6 @@
 )
 
 (defrule
-   (can-research ri-gold-shaft-mining)
-   =>
-   (research ri-gold-shaft-mining)
-   (chat-to-allies "Researching gold shaft mining.")
-)
-
-(defrule
    (can-research ri-heavy-plow)
    =>
    (research ri-heavy-plow)
@@ -500,6 +500,7 @@
 )
 
 (defrule
+   (building-type-count-total town-center > 2)
    (can-research ri-chain-mail)
    =>
    (research ri-chain-mail)
@@ -507,23 +508,36 @@
 )
 
 (defrule
+   (building-type-count-total town-center > 2)
    (can-research ri-iron-casting)
    =>
    (research ri-iron-casting)
    (chat-to-allies "Researching iron casting.")
 )
+
 (defrule
+   (building-type-count-total town-center > 2)
    (can-research ri-gold-shaft-mining)
    =>
    (research ri-gold-shaft-mining)
    (chat-to-allies "Researching gold-shaft-mining.")
 )
+
 (defrule
+   (building-type-count-total town-center > 2)
    (can-research ri-stone-shaft-mining)
    =>
    (research ri-stone-shaft-mining)
    (chat-to-allies "Researching stone-shaft-mining.")
 )
+
+(defrule
+   (can-research ri-two-man-saw)
+   =>
+   (research ri-two-man-saw)
+   (chat-to-allies "Researching two-man-saw")
+)
+
 (defrule
    (can-research ri-crop-rotation)
    =>
@@ -612,12 +626,24 @@
    =>
    (build house)
 )
-
-#end-if
+; Increase housing headroom so that your housing will not
+;limit your troop production.
 
 (defrule
+   (or(current-age > dark-age)
+      (and(goal g-age-status gv-advancing-to-feudal)
+          (building-type-count-total barracks > 1)))
+   (housing-headroom < 10)
+   (population-headroom > 3)
+   (can-build house)
+   =>
+   (build house)
+)
+#end-if
+
+;********************** lumber camp rules ******************
+(defrule
    (goal g-age-status gv-dark-age)
-   (building-type-count-total mill > 0)
    (resource-found wood)
    (building-type-count-total lumber-camp < 1)
    (can-build lumber-camp)
@@ -625,6 +651,34 @@
    (build lumber-camp)
 )
 
+(defrule
+   (current-age <= feudal-age)
+   (building-type-count lumber-camp == 1)
+   (dropsite-min-distance wood > 5)
+   =>
+   (chat-to-allies "Bad lumber camp.")
+   (set-strategic-number sn-camp-max-distance 45)
+   (chat-local-to-self "Camp distance 45.")
+   (set-strategic-number sn-maximum-wood-drop-distance -1)
+   (disable-self)
+)
+
+(defrule
+   (building-type-count-total lumber-camp == 2)
+   =>
+   (set-strategic-number sn-maximum-wood-drop-distance 15)
+   (disable-self)
+)
+
+(defrule
+   (or(current-age >= feudal-age)
+      (strategic-number sn-camp-max-distance == 45))
+   (dropsite-min-distance wood > 5)
+   (can-build lumber-camp)
+   =>
+   (build lumber-camp)
+)
+;*************** lumber camp rules end************************
 (defrule
     (building-type-count-total house > 0) ; We want to build a house before a mill
     (building-type-count-total lumber-camp > 0)
@@ -753,15 +807,17 @@
 
 ; keep farms at lower priority than buildings
 (defrule
-    (goal g-age-status gv-dark-age) 
-    (building-type-count-total mill > 0);build mill before farms
-    (building-type-count lumber-camp > 0) ; We want a lumber camp before farms
-    (or(building-type-count-total farm < 15)
-        (idle-farm-count == 0))
-    (can-build farm)
-    =>
-    (chat-local-to-self "building farm.")
-    (build farm)
+   (goal g-age-status gv-dark-age) 
+   (building-type-count-total mill > 0);build mill before farms
+   (building-type-count lumber-camp > 0) ; We want a lumber camp before farms
+   (unit-type-count-total villager > 15); wait till atleast 15 vills before farms.
+   (or(building-type-count-total farm < 15)
+      (idle-farm-count == 0 ))
+   (idle-farm-count < 4)
+   (can-build farm)
+   =>
+   (chat-local-to-self "building farm.")
+   (build farm)
 )
 
 (defrule
