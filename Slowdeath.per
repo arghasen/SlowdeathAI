@@ -117,7 +117,55 @@
 ; Market Rules
 ;
 ;******************************************************************************
+(defrule
+   (current-age >= feudal-age)  
+   (wood-amount > 400)
+   (or(gold-amount < 200)
+      (food-amount < 800))
+   (can-sell-commodity wood)
+   =>
+   (sell-commodity wood)
+)
 
+;Buy food if you have surplus gold.
+
+(defrule
+   (current-age >= feudal-age)  
+   (gold-amount > 400)
+   (food-amount < 800)
+   (can-buy-commodity food)
+   =>
+   (buy-commodity food)
+)
+
+;Sell food if you have surplus food.
+
+(defrule
+   (current-age >= feudal-age)  
+   (gold-amount < 200)
+   (food-amount > 1000)
+   (can-sell-commodity food)
+   =>
+   (sell-commodity food)
+)
+
+
+(defrule
+   (current-age == imperial-age)  
+   (gold-amount < 500)
+   (food-amount > 1500)
+   (can-sell-commodity food)
+   =>
+   (sell-commodity food)
+)
+(defrule
+   (current-age == imperial-age)  
+   (gold-amount < 800)
+   (wood-amount > 1500)
+   (can-sell-commodity wood)
+   =>
+   (sell-commodity wood)
+)
 ;******************************************************************************
 ;
 ; Economy Rules
@@ -253,7 +301,183 @@
 )
 
 ;##################### Feudal Age Research #################
+(defrule
+   (can-research ri-wheel-barrow)
+   =>
+   (research ri-wheel-barrow)
+   (chat-to-allies "Researching wheel barrow.")
+)
 
+(defrule
+   (current-age == imperial-age)
+   (can-research ri-man-at-arms)
+   =>
+   (research ri-man-at-arms)
+   (chat-to-allies "Researching man at arms.")
+)
+
+(defrule
+   (not(research-available ri-wheel-barrow))
+   (can-research ri-double-bit-axe)
+   =>
+   (research ri-double-bit-axe)
+   (chat-to-allies "Researching double bit axe.")
+)
+
+(defrule
+   (current-age == castle-age)
+   (not(research-available ri-double-bit-axe))
+   (can-research ri-gold-mining)
+   =>
+   (research ri-gold-mining)
+   (chat-to-allies "Researching gold mining.")
+)
+
+(defrule
+   (can-research ri-horse-collar)
+   =>
+   (research ri-horse-collar)
+   (chat-to-allies "Researching horse collar.")
+)
+
+(defrule
+   (current-age == castle-age)
+   (not(research-available ri-pikeman))
+   (can-research ri-scale-mail)
+   =>
+   (research ri-scale-mail)
+   (chat-to-allies "Researching scale mail armor.")
+)
+
+(defrule
+   (current-age == castle-age)
+   (research-completed ri-scale-mail)
+   (can-research ri-forging)
+   =>
+   (research ri-forging)
+   (chat-to-allies "Researching forging.")
+)
+; ################################## Castle Age Research
+(defrule
+   (can-research ri-hand-cart)
+   =>
+   (research ri-hand-cart)
+   (chat-to-allies "Researching hand cart.")
+)
+
+(defrule
+   (can-research ri-bow-saw)
+   =>
+   (research ri-bow-saw)
+   (chat-to-allies "Researching bow saw.")
+)
+
+(defrule
+   (can-research ri-gold-shaft-mining)
+   =>
+   (research ri-gold-shaft-mining)
+   (chat-to-allies "Researching gold shaft mining.")
+)
+
+(defrule
+   (can-research ri-heavy-plow)
+   =>
+   (research ri-heavy-plow)
+   (chat-to-allies "Researching heavy plow.")
+)
+
+(defrule
+   (can-research ri-chain-mail)
+   =>
+   (research ri-chain-mail)
+   (chat-to-allies "Researching chain mail armor.")
+)
+
+(defrule
+   (can-research ri-iron-casting)
+   =>
+   (research ri-iron-casting)
+   (chat-to-allies "Researching iron casting.")
+)
+(defrule
+   (can-research ri-gold-shaft-mining)
+   =>
+   (research ri-gold-shaft-mining)
+   (chat-to-allies "Researching gold-shaft-mining.")
+)
+(defrule
+   (can-research ri-stone-shaft-mining)
+   =>
+   (research ri-stone-shaft-mining)
+   (chat-to-allies "Researching stone-shaft-mining.")
+)
+(defrule
+   (can-research ri-crop-rotation)
+   =>
+   (research ri-crop-rotation)
+   (chat-to-allies "Researching crop-rotation")
+)
+(defrule
+   (can-research ri-guilds)
+   =>
+   (research ri-guilds)
+   (chat-to-allies "Researching guilds.")
+)
+
+(defrule
+   (building-type-count-total castle > 0)
+   (can-research ri-murder-holes)
+   =>
+   (research ri-murder-holes)
+)
+
+(defrule
+   (building-type-count-total castle > 0)
+   (can-research ri-chemistry)
+   =>
+   (research ri-chemistry)
+)
+
+(defrule
+   (town-under-attack)
+   (can-research ri-fletching)
+   =>
+   (research ri-fletching)
+   (chat-to-allies "Researching fletching.")
+)
+
+(defrule
+   (town-under-attack)
+   (can-research ri-bodkin-arrow)
+   =>
+   (research ri-bodkin-arrow)
+   (chat-to-allies "Researching bodkin-arrow.")
+)
+
+(defrule
+   (town-under-attack)
+   (can-research ri-bracer)
+   =>
+   (research ri-bracer)
+   (chat-to-allies "Researching bracer.")
+)
+
+(defrule
+   
+   (can-research ri-masonry)
+   (town-under-attack)
+   =>
+   (research ri-masonry)
+   (chat-to-allies "Researching masonry.")
+)
+
+(defrule
+   (current-age >= castle-age)
+   (can-research ri-stone-mining)
+   =>
+   (research ri-stone-mining)
+   (chat-to-allies "Researching stone mining.")
+)
 
 ;******************************************************************************
 ;
@@ -300,15 +524,117 @@
 
 (defrule
    (or(current-age > dark-age)
-      (goal g-age-status gv-advancing-to-feudal)) ;New in Training2
-   (resource-found gold)
+      (goal g-age-status gv-advancing-to-feudal)) 
    (building-type-count mining-camp < 4)
-   (cc-players-unit-type-count 0 66 > 0)
+   ;(cc-players-unit-type-count 0 66 > 0)
    (dropsite-min-distance gold > 5)
    (dropsite-min-distance gold < 255)
    (can-build mining-camp)
    =>
    (build mining-camp)
+)
+
+(defrule
+   (or(current-age > dark-age)
+      (goal g-age-status gv-advancing-to-feudal))  
+   (building-type-count-total mining-camp > 0)
+   (building-type-count-total barracks < 2)
+   (can-build barracks)
+   =>
+   (build barracks)
+)
+
+; build a blacksmith
+(defrule
+   (current-age >= feudal-age)
+   (building-type-count-total barracks > 0)
+   (building-type-count-total blacksmith == 0)
+   (can-build blacksmith)
+   =>
+   (chat-local-to-self "building blacksmith.")
+   (build blacksmith)
+)
+; build a market
+(defrule
+   (current-age == feudal-age)
+   (building-type-count-total blacksmith > 0)
+   (building-type-count-total market == 0)
+   (can-build market)
+   =>
+   (chat-local-to-self "building market.")
+   (build market)
+)
+
+; build a stone mine in castle age
+(defrule
+    (current-age >= feudal-age)  
+    (building-type-count-total mining-camp > 0)
+    (resource-found stone)
+    (dropsite-min-distance stone > 5)
+    (can-build mining-camp)
+    =>
+    (chat-local-to-self "building mining-camp.")
+    (build mining-camp)
+)
+
+; 2nd mining camp for gold if necessary
+(defrule
+    (current-age >= feudal-age)  
+    (building-type-count-total mining-camp > 0)
+    (resource-found gold)
+    (dropsite-min-distance gold > 5)
+    (can-build mining-camp)
+    =>
+    (chat-local-to-self "building mining-camp.")
+    (build mining-camp)
+)
+
+; build a monastery
+(defrule
+   (current-age == castle-age)
+   (building-type-count-total monastery == 0)
+   (can-build monastery)
+   =>
+   (chat-local-to-self "building monastery.")
+   (build monastery)
+)
+
+; build a university
+(defrule
+   (current-age == castle-age)
+   (building-type-count-total university == 0)
+   (can-build university)
+   =>
+   (chat-local-to-self "building university.")
+   (build university)
+)
+
+(defrule
+   (current-age >= castle-age)
+   (building-type-count-total town-center < 3)
+   (can-build town-center)
+   =>
+   (chat-local-to-self "building town-center.")
+   (build town-center)
+)
+
+(defrule
+   (current-age >= castle-age)
+   (building-type-count-total university == 1)
+   (can-build castle)
+   =>
+   (chat-local-to-self "building castle.")
+   (build castle)
+)
+
+;build upto barracks in imperial age
+(defrule
+   (current-age > castle-age)
+   (building-type-count-total barracks < 10)
+   (can-build barracks)
+   =>
+   (chat-local-to-self "building barracks.")
+   (build barracks)
 )
 
 ; keep farms at lower priority than buildings
@@ -388,3 +714,110 @@
 ; Attack Rules
 ;
 ;******************************************************************************
+
+;###############################################
+;Miscelleneous
+;###############################################
+; research long swordsman
+(defrule
+   (current-age == imperial-age)
+   (can-research ri-long-swordsman)
+   =>
+   (research ri-long-swordsman)
+   (chat-local-to-self "Researching Long Swordsman.")
+)
+
+; research two-handed-swordsman
+(defrule
+   (can-research ri-two-handed-swordsman)
+   =>
+   (research ri-two-handed-swordsman)
+   (chat-local-to-self "Researching two-handed-swordsman.")
+)
+
+; research champion
+(defrule
+   (can-research ri-champion)
+   =>
+   (research ri-champion)
+   (chat-local-to-self "Researching champion.")
+)
+; research pikeman
+(defrule
+   (can-research ri-pikeman)
+   =>
+   (research ri-pikeman)
+   (chat-local-to-self "Researching pikeman.")
+)
+; research Halberdier 
+(defrule
+   (can-research ri-halberdier )
+   =>
+   (research ri-halberdier)
+   (chat-local-to-self "Researching halberdier.")
+)
+(defrule
+   (can-research ri-plate-mail)
+   =>
+   (research ri-plate-mail)
+   (chat-to-allies "Researching plate mail armor.")
+)
+
+(defrule
+   (can-research ri-blast-furnace)
+   =>
+   (research ri-blast-furnace)
+   (chat-to-allies "Researching blast furnace.")
+)
+
+(defrule
+   (can-research ri-conscription)
+   =>
+   (research ri-conscription)
+   (chat-to-allies "Researching conscription.")
+)
+(defrule
+   (current-age > castle-age)
+   (can-research ri-tracking)
+   =>
+   (research ri-tracking)
+)
+
+(defrule
+   (current-age > castle-age)   
+   (can-research ri-squires)
+   =>
+   (research ri-squires)
+)
+(defrule
+   (current-age > castle-age)   
+   (can-research ri-arson)
+   =>
+   (research ri-arson)
+)
+
+(defrule
+   (current-age > feudal-age)
+   (military-population <= 10)  
+   (can-train spearman-line)
+   =>
+   (train spearman-line)
+)
+(defrule
+   (current-age > castle-age)
+   (can-train militiaman-line)
+   =>
+   (train militiaman-line)
+)
+(defrule
+   (current-age > castle-age)  
+   (can-train spearman-line)
+   =>
+   (train spearman-line)
+)
+; be conservative as standard AI doesnt attack much
+(defrule
+(military-population >= 80)
+=>
+(attack-now)
+)
