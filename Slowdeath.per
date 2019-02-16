@@ -80,6 +80,21 @@
    (set-strategic-number sn-enemy-sighted-response-distance 2)
    (disable-self)
 )
+
+(defrule
+   (true)
+   =>
+    (set-strategic-number sn-maximum-food-drop-distance 15)
+    (set-strategic-number sn-maximum-wood-drop-distance 15)
+    (set-strategic-number sn-maximum-stone-drop-distance 25)
+    (set-strategic-number sn-maximum-gold-drop-distance 25)
+    (set-strategic-number sn-maximum-hunt-drop-distance 15)
+    (set-strategic-number sn-maximum-fish-boat-drop-distance 15)
+    (set-strategic-number sn-mill-max-distance 15)
+    (set-strategic-number sn-cap-civilian-builders 10) ;max number of builders
+    (disable-self)
+)
+
 ;******************************************************************************
 ;
 ; Initialization Rules
@@ -110,6 +125,104 @@
 =>
 	(up-assign-builders c: town-center-foundation c: 4) ; town-center-foundation = 621
 	(disable-self)
+)
+
+; lumber placement rules, copied from BearTheGreat tutorial
+(defrule
+   (resource-found wood)
+   (strategic-number sn-camp-max-distance == 8)
+   (game-time < 4)
+   =>
+   (set-strategic-number sn-camp-max-distance 11)
+   (chat-local-to-self "Camp distance 11.")
+   (disable-self)
+)
+
+(defrule
+   (resource-found wood)
+   (strategic-number sn-camp-max-distance == 8)
+   (game-time < 7)
+   =>
+   (set-strategic-number sn-camp-max-distance 13)
+   (chat-local-to-self "Camp distance 13.")
+   (disable-self)
+)
+
+(defrule
+   (resource-found wood)
+   (strategic-number sn-camp-max-distance == 8)
+   (game-time < 12)
+   =>
+   (set-strategic-number sn-camp-max-distance 15)
+   (chat-local-to-self "Camp distance 15.")
+   (disable-self)
+)
+
+(defrule
+   (resource-found wood)
+   (strategic-number sn-camp-max-distance == 8)
+   (game-time < 16)
+   =>
+   (set-strategic-number sn-camp-max-distance 17)
+   (chat-local-to-self "Camp distance 17.")
+   (disable-self)
+)
+
+(defrule
+   (resource-found wood)
+   (strategic-number sn-camp-max-distance == 8)
+   (game-time < 25)
+   =>
+   (set-strategic-number sn-camp-max-distance 20)
+   (chat-local-to-self "Camp distance 20.")
+   (disable-self)
+)
+
+(defrule
+   (resource-found wood)
+   (strategic-number sn-camp-max-distance == 8)
+   (game-time > 25)
+   =>
+   (set-strategic-number sn-camp-max-distance 22)
+   (chat-local-to-self "Camp distance 22.")
+   (disable-self)
+)
+
+;I added the next two rules as acts of desperation.  They rarely fire on a
+;standard map.
+
+(defrule
+   (current-age == dark-age)
+   (wood-amount > 200)
+   (population > 19)
+   (building-type-count-total lumber-camp == 0)
+   =>
+   (set-strategic-number sn-camp-max-distance 35)
+   (chat-to-allies "Wood further away than 22 tiles!")
+   (chat-local-to-self "Camp distance 35.")
+   (disable-self)
+)
+
+(defrule
+   (current-age == dark-age)
+   (wood-amount > 200)
+   (population > 21)
+   (building-type-count-total lumber-camp == 0)
+   =>
+   (set-strategic-number sn-camp-max-distance 45)
+   (chat-to-allies "Wood further away than 35 tiles!")
+   (chat-local-to-self "Camp distance 45.")
+   (disable-self)
+)
+; end of first lumber placement rules
+
+(defrule
+   (building-type-count-total lumber-camp > 0)
+   (strategic-number sn-camp-max-distance < 35)
+   =>
+   (set-strategic-number sn-camp-max-distance 35)
+   (chat-local-to-self "Camp distance 35.")
+   (disable-self)
 )
 
 ;******************************************************************************
@@ -503,12 +616,13 @@
 #end-if
 
 (defrule
-    (building-type-count-total lumber-camp == 0)
-    (resource-found wood)
-    (can-build lumber-camp)
-    =>
-    (chat-local-to-self "building lumbercamp.")
-    (build lumber-camp)
+   (goal g-age-status gv-dark-age)
+   (building-type-count-total mill > 0)
+   (resource-found wood)
+   (building-type-count-total lumber-camp < 1)
+   (can-build lumber-camp)
+   =>
+   (build lumber-camp)
 )
 
 (defrule
