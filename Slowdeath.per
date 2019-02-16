@@ -95,6 +95,11 @@
     (disable-self)
 )
 
+(defrule
+   (true)
+   =>
+   (set-strategic-number sn-intelligent-gathering gv-on)
+)
 ;******************************************************************************
 ;
 ; Initialization Rules
@@ -460,8 +465,8 @@
 (defrule
    (goal g-age-status gv-feudal-age)  
    =>
-   (set-strategic-number sn-food-gatherer-percentage 55)
-   (set-strategic-number sn-wood-gatherer-percentage 30)
+   (set-strategic-number sn-food-gatherer-percentage 45)
+   (set-strategic-number sn-wood-gatherer-percentage 40)
    (set-strategic-number sn-gold-gatherer-percentage 10)
    (set-strategic-number sn-stone-gatherer-percentage 5)
    (disable-self)
@@ -495,7 +500,8 @@
 ;******************************************************************************
 
 ;######################## Age Advance ############################
-(defrule                                     
+(defrule 
+(goal g-age-status gv-advancing-to-feudal)                                    
    (research-available feudal-age)
    =>
    (chat-to-allies "Age research misfire!")
@@ -572,8 +578,17 @@
    (chat-local-to-self "Researching loom.")
 )
 
+(defrule
+   (town-under-attack)
+   (can-research ri-loom)
+   =>
+   (research ri-loom)
+   (chat-local-to-self "Researching loom.")
+)
+
 ;##################### Feudal Age Research #################
 (defrule
+   (can-advance-feudal-age)
    (can-research ri-wheel-barrow)
    =>
    (research ri-wheel-barrow)
@@ -855,10 +870,9 @@
 )
 
 (defrule
-   (or(current-age > dark-age)
-      (goal g-age-status gv-advancing-to-feudal))  
+   (goal g-age-status gv-advancing-to-feudal)
    (building-type-count-total mining-camp > 0)
-   (building-type-count-total barracks < 2)
+   (building-type-count-total barracks < 1)
    (can-build barracks)
    =>
    (build barracks)
@@ -931,7 +945,7 @@
 
 (defrule
    (current-age >= castle-age)
-   (building-type-count-total town-center < 3)
+   (building-type-count-total town-center < 4)
    (can-build town-center)
    =>
    (chat-local-to-self "building town-center.")
@@ -971,9 +985,18 @@
    (chat-local-to-self "building farm.")
    (build farm)
 )
+(defrule
+   (goal g-age-status gv-feudal-age) 
+   (building-type-count-total farm <= 15)
+   (idle-farm-count == 0)
+   (can-build farm)
+   =>
+   (chat-local-to-self "building farm.")
+   (build farm)
+)
 
 (defrule
-   (or(current-age > dark-age)
+   (or(current-age > feudal-age)
       (goal g-age-status gv-advancing-to-feudal))  
    (idle-farm-count == 0)
    (can-build farm)
