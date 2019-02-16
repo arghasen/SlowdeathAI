@@ -292,39 +292,190 @@
 ;
 ;******************************************************************************
 (defrule
-    (goal g-age-status gv-dark-age) 
-    =>
-    (set-strategic-number sn-food-gatherer-percentage 60)
-    (set-strategic-number sn-wood-gatherer-percentage 40)
-    (set-strategic-number sn-gold-gatherer-percentage 0)
-    (set-strategic-number sn-stone-gatherer-percentage 0)
+	(unit-type-count villager <= 8)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 0)
+	(set-strategic-number sn-food-gatherer-percentage 100)	;8
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 9)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 12) ;1
+	(set-strategic-number sn-food-gatherer-percentage 88) ;8
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 10)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 20)	;2
+	(set-strategic-number sn-food-gatherer-percentage 80)	;8
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 11)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 28)	;3
+	(set-strategic-number sn-food-gatherer-percentage 72)	;8
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 12)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 34)	;4
+	(set-strategic-number sn-food-gatherer-percentage 66)	;8
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 13)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 31)	;4
+	(set-strategic-number sn-food-gatherer-percentage 69)	;9
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 14)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 29)	;4
+	(set-strategic-number sn-food-gatherer-percentage 71)	;10
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 15)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 34)	;5
+	(set-strategic-number sn-food-gatherer-percentage 66)	;10
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 16)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 38)	;6
+	(set-strategic-number sn-food-gatherer-percentage 62)	;10
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 17)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 42)	;7
+	(set-strategic-number sn-food-gatherer-percentage 58)	;10
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
 (defrule
-    (goal g-age-status gv-advancing-to-feudal)  
-    =>
-    (set-strategic-number sn-food-gatherer-percentage 40)
-    (set-strategic-number sn-wood-gatherer-percentage 50)
-    (set-strategic-number sn-gold-gatherer-percentage 10)
-    (set-strategic-number sn-stone-gatherer-percentage 0)
+	(unit-type-count villager == 18)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 45)	;8
+	(set-strategic-number sn-food-gatherer-percentage 55)	;10
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 (defrule
-    (goal g-age-status gv-feudal-age)  
-    =>
-    (set-strategic-number sn-food-gatherer-percentage 55)
-    (set-strategic-number sn-wood-gatherer-percentage 30)
-    (set-strategic-number sn-gold-gatherer-percentage 10)
-    (set-strategic-number sn-stone-gatherer-percentage 5)
+	(unit-type-count villager == 19)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 43)	;8
+	(set-strategic-number sn-food-gatherer-percentage 57)	;11
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 20)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 40)	;8
+	(set-strategic-number sn-food-gatherer-percentage 60)	;12
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 21)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 39)	;8
+	(set-strategic-number sn-food-gatherer-percentage 61)	;13
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 22)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 41)	;9
+	(set-strategic-number sn-food-gatherer-percentage 59)	;13
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 23)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 40)	;9
+	(set-strategic-number sn-food-gatherer-percentage 55)	;13
+	(set-strategic-number sn-gold-gatherer-percentage 5)	;1
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 24)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 38)	;9
+	(set-strategic-number sn-food-gatherer-percentage 53)	;13
+	(set-strategic-number sn-gold-gatherer-percentage 9)	;2
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager == 25)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 36)	;9
+	(set-strategic-number sn-food-gatherer-percentage 52)	;13
+	(set-strategic-number sn-gold-gatherer-percentage 12)	;3
+	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
 (defrule
-    (goal g-age-status gv-castle-age) 
-    =>
-    (set-strategic-number sn-food-gatherer-percentage 40)
-    (set-strategic-number sn-wood-gatherer-percentage 40)
-    (set-strategic-number sn-gold-gatherer-percentage 15)
-    (set-strategic-number sn-stone-gatherer-percentage 5)
-    (set-strategic-number sn-maximum-town-size 25)
+   (goal g-age-status gv-dark-age) 
+   (unit-type-count villager >= 26)
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 70)
+   (set-strategic-number sn-wood-gatherer-percentage 30)
+   (set-strategic-number sn-gold-gatherer-percentage 0)
+   (set-strategic-number sn-stone-gatherer-percentage 0)
+   (disable-self)
+)
+
+(defrule
+   (goal g-age-status gv-advancing-to-feudal)  
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 35)
+   (set-strategic-number sn-wood-gatherer-percentage 55)
+   (set-strategic-number sn-gold-gatherer-percentage 10)
+   (set-strategic-number sn-stone-gatherer-percentage 0)
+   (disable-self)
+)
+(defrule
+   (goal g-age-status gv-feudal-age)  
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 55)
+   (set-strategic-number sn-wood-gatherer-percentage 30)
+   (set-strategic-number sn-gold-gatherer-percentage 10)
+   (set-strategic-number sn-stone-gatherer-percentage 5)
+   (disable-self)
+)
+
+(defrule
+   (goal g-age-status gv-castle-age) 
+   =>
+   (set-strategic-number sn-food-gatherer-percentage 40)
+   (set-strategic-number sn-wood-gatherer-percentage 40)
+   (set-strategic-number sn-gold-gatherer-percentage 15)
+   (set-strategic-number sn-stone-gatherer-percentage 5)
+   (set-strategic-number sn-maximum-town-size 25)
+   (disable-self)
 )
 
 (defrule
@@ -335,6 +486,7 @@
    (set-strategic-number sn-gold-gatherer-percentage 15)
    (set-strategic-number sn-stone-gatherer-percentage 5)
    (set-strategic-number sn-maximum-town-size 36)
+   (disable-self)
 )
 ;******************************************************************************
 ;
