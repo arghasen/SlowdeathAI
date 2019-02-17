@@ -605,7 +605,6 @@
 )
 
 (defrule
-   (not(research-available ri-wheel-barrow))
    (can-research ri-double-bit-axe)
    =>
    (research ri-double-bit-axe)
@@ -687,7 +686,7 @@
 )
 
 (defrule
-   (building-type-count-total town-center > 4)
+   (building-type-count town-center >= 3)
    (can-research ri-gold-shaft-mining)
    =>
    (research ri-gold-shaft-mining)
@@ -695,7 +694,7 @@
 )
 
 (defrule
-   (building-type-count-total town-center > 4)
+   (building-type-count town-center >= 3)
    (can-research ri-stone-shaft-mining)
    =>
    (research ri-stone-shaft-mining)
@@ -785,6 +784,23 @@
    (chat-to-allies "Researching stone mining.")
 )
 
+;*******************LINE OF SIGHT
+(defrule
+   (unit-type-count villager > 100)
+   (can-research ri-town-watch)
+   =>
+   (research ri-town-watch)
+   (chat-to-allies "Researching town-watch.")
+)
+
+(defrule
+   (unit-type-count villager > 100)
+   (gold-amount > 500)
+   (can-research ri-town-patrol)
+   =>
+   (research ri-town-patrol)
+   (chat-to-allies "Researching town-patrol.")
+)
 ;******************************************************************************
 ;
 ; Escrow Rules
@@ -960,6 +976,7 @@
 (defrule
    (current-age >= castle-age)
    (building-type-count-total town-center < 4)
+   (unit-type-count villager < 90) ; dont make TC if already have 90 vills.
    (can-build town-center)
    =>
    (chat-local-to-self "building town-center.")
@@ -984,6 +1001,18 @@
    (chat-local-to-self "building barracks.")
    (build barracks)
 )
+;build couple of seige workshops in imperial age
+(defrule
+   (current-age > castle-age)
+   (building-type-count-total barracks > 6)
+   (military-population > 80)
+   (building-type-count-total siege-workshop < 2)
+   (can-build siege-workshop)
+   =>
+   (chat-local-to-self "building siege-workshop.")
+   (build barracks)
+)
+
 ; ****************FARMING***************
 ; keep farms at lower priority than buildings
 (defrule
@@ -1163,17 +1192,27 @@
    =>
    (train spearman-line)
 )
+
 (defrule
-   (current-age > castle-age)
+   (current-age >= castle-age)
+   (unit-type-count villager > 100)
    (can-train militiaman-line)
    =>
    (train militiaman-line)
-)
+) 
+
 (defrule
    (current-age > castle-age)  
    (can-train spearman-line)
    =>
    (train spearman-line)
+)
+
+(defrule
+   (military-population >= 80)
+   (can-train battering-ram-line)
+   =>
+   (train battering-ram-line)
 )
 ; be conservative as standard AI doesnt attack much
 (defrule
