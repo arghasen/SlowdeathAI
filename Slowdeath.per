@@ -531,6 +531,7 @@
 )
 
 (defrule
+   (not(can-research ri-wheel-barrow))
    (can-research castle-age)
    =>
    (research castle-age)
@@ -588,7 +589,7 @@
 
 ;##################### Feudal Age Research #################
 (defrule
-   (can-advance-feudal-age)
+   (can-research castle-age)
    (can-research ri-wheel-barrow)
    =>
    (research ri-wheel-barrow)
@@ -646,6 +647,7 @@
 )
 ; ################################## Castle Age Research
 (defrule
+   (building-type-count town-center > 2)
    (can-research ri-hand-cart)
    =>
    (research ri-hand-cart)
@@ -653,6 +655,7 @@
 )
 
 (defrule
+   (building-type-count town-center > 2)
    (can-research ri-bow-saw)
    =>
    (research ri-bow-saw)
@@ -660,6 +663,7 @@
 )
 
 (defrule
+   (building-type-count town-center > 2)
    (can-research ri-heavy-plow)
    =>
    (research ri-heavy-plow)
@@ -667,7 +671,7 @@
 )
 
 (defrule
-   (building-type-count-total town-center > 2)
+   (building-type-count-total town-center > 3)
    (can-research ri-chain-mail)
    =>
    (research ri-chain-mail)
@@ -675,7 +679,7 @@
 )
 
 (defrule
-   (building-type-count-total town-center > 2)
+   (building-type-count-total town-center > 3)
    (can-research ri-iron-casting)
    =>
    (research ri-iron-casting)
@@ -683,7 +687,7 @@
 )
 
 (defrule
-   (building-type-count-total town-center > 2)
+   (building-type-count-total town-center > 4)
    (can-research ri-gold-shaft-mining)
    =>
    (research ri-gold-shaft-mining)
@@ -691,7 +695,7 @@
 )
 
 (defrule
-   (building-type-count-total town-center > 2)
+   (building-type-count-total town-center > 4)
    (can-research ri-stone-shaft-mining)
    =>
    (research ri-stone-shaft-mining)
@@ -754,6 +758,14 @@
    =>
    (research ri-bracer)
    (chat-to-allies "Researching bracer.")
+)
+(defrule
+   (town-under-attack)
+   (current-age == imperial-age)
+   (can-research ri-ballistics)
+   =>
+   (research ri-ballistics)
+   (chat-to-allies "Researching ballistics.")
 )
 
 (defrule
@@ -845,6 +857,7 @@
    =>
    (build lumber-camp)
 )
+
 ;*************** lumber camp rules end************************
 (defrule
     (building-type-count-total house > 0) ; We want to build a house before a mill
@@ -870,7 +883,8 @@
 )
 
 (defrule
-   (goal g-age-status gv-advancing-to-feudal)
+   (or(current-age > dark-age)
+      (goal g-age-status gv-advancing-to-feudal))
    (building-type-count-total mining-camp > 0)
    (building-type-count-total barracks < 1)
    (can-build barracks)
@@ -970,12 +984,13 @@
    (chat-local-to-self "building barracks.")
    (build barracks)
 )
-
+; ****************FARMING***************
 ; keep farms at lower priority than buildings
 (defrule
    (goal g-age-status gv-dark-age) 
    (building-type-count-total mill > 0);build mill before farms
    (building-type-count lumber-camp > 0) ; We want a lumber camp before farms
+   (wood-amount > 100)
    (unit-type-count-total villager > 15); wait till atleast 15 vills before farms.
    (or(building-type-count-total farm < 15)
       (idle-farm-count == 0 ))
