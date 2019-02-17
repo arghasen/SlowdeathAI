@@ -1194,7 +1194,14 @@
 )
 
 (defrule
-   (current-age >= castle-age)
+   (goal age-)
+   (unit-type-count villager > 100)
+   (can-train militiaman-line)
+   =>
+   (train militiaman-line)
+) 
+(defrule
+   (goal g-age-status gv-advancing-to-imperial)  
    (unit-type-count villager > 100)
    (can-train militiaman-line)
    =>
