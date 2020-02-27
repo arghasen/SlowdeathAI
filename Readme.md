@@ -1,3 +1,4 @@
+# Beginning of the Slowdeath AI
 From BearTheGreat tutorial
 1. Defconst Rules.  Constants must be defined before they can be used in rules or else they will generate an error message, so they really need to be at the top of the file.
 2. Starting Strategic Numbers.  Strategic numbers really can go anywhere in the file, but I tend to put the ones defined early in the game at this location in the list.
@@ -59,6 +60,17 @@ Won in 1 hour 2 min. Normal 2nd wave
 ## v0.7.4
 Won in 59.11 min. Normal 2nd wave.
 
+# Update 27th Feb 2020
 
+I was away from scripting AI for over an year and now look to improve this further. First a few games will be played for me to remember the state the AI was when I stopped.
+The first 3 games were abandoned as the settings were incorrect.
+Game 1:
+Lost in 40 mins to Knight rush, AI ran into wood troubles and could never recover. It went to castle at 30 mins with 40 vills.
+Game 2:
+Lost in 45 mins to Long Swordman rush by Goths. AI did 27 min castle with 35 pop.
+Game 3:
+Lost in 51 mins to a late attack by Swordsmen and Crossbows. Managed to reach imperial age with 4 tc boom.
+Game 4:
+Lost in 1hr to 2nd wave of Knights, managed to reach Imp but was destryed by then.
 
-# Beginning of the Slowdeath AI
+Looks like the results in the few games before I stopped dev were an abberation, the AI is losing heavily to Standard HD AI.

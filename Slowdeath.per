@@ -297,26 +297,42 @@
 ;
 ;******************************************************************************
 (defrule
-	(unit-type-count villager <= 8)
+	(unit-type-count villager <= 6)
 =>
 	(set-strategic-number sn-wood-gatherer-percentage 0)
-	(set-strategic-number sn-food-gatherer-percentage 100)	;8
+	(set-strategic-number sn-food-gatherer-percentage 100)	;6
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager <= 7)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 14)  ;1
+	(set-strategic-number sn-food-gatherer-percentage 86)	 ;6
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+(defrule
+	(unit-type-count villager <= 8)
+=>
+	(set-strategic-number sn-wood-gatherer-percentage 25) ;2
+	(set-strategic-number sn-food-gatherer-percentage 75)	;6
 	(set-strategic-number sn-gold-gatherer-percentage 0)
 	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 (defrule
 	(unit-type-count villager == 9)
 =>
-	(set-strategic-number sn-wood-gatherer-percentage 12) ;1
-	(set-strategic-number sn-food-gatherer-percentage 88) ;8
+	(set-strategic-number sn-wood-gatherer-percentage 33) ;3
+	(set-strategic-number sn-food-gatherer-percentage 66) ;6
 	(set-strategic-number sn-gold-gatherer-percentage 0)
 	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 (defrule
 	(unit-type-count villager == 10)
 =>
-	(set-strategic-number sn-wood-gatherer-percentage 20)	;2
-	(set-strategic-number sn-food-gatherer-percentage 80)	;8
+	(set-strategic-number sn-wood-gatherer-percentage 30)	;3
+	(set-strategic-number sn-food-gatherer-percentage 70)	;7
 	(set-strategic-number sn-gold-gatherer-percentage 0)
 	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
@@ -1194,7 +1210,7 @@
 )
 
 (defrule
-   (goal age-)
+   (goal g-age-status gv-imperial-age)
    (unit-type-count villager > 100)
    (can-train militiaman-line)
    =>
