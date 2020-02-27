@@ -3,7 +3,8 @@
 ; Defconst Rules 
 ;
 ;******************************************************************************
-(defconst dark-age-max-villagers 30)
+(defconst dark-age-max-villagers 25)
+(defconst feudal-age-max-villagers 30)
 (defconst town-center-foundation 621)
 
 ;******************************************************************************
@@ -85,9 +86,9 @@
    (true)
    =>
     (set-strategic-number sn-maximum-food-drop-distance 15)
-    (set-strategic-number sn-maximum-wood-drop-distance 15)
-    (set-strategic-number sn-maximum-stone-drop-distance 25)
-    (set-strategic-number sn-maximum-gold-drop-distance 25)
+    (set-strategic-number sn-maximum-wood-drop-distance 5)
+    (set-strategic-number sn-maximum-stone-drop-distance 5)
+    (set-strategic-number sn-maximum-gold-drop-distance 5)
     (set-strategic-number sn-maximum-hunt-drop-distance 15)
     (set-strategic-number sn-maximum-fish-boat-drop-distance 15)
     (set-strategic-number sn-mill-max-distance 15)
@@ -613,6 +614,15 @@
 )
 
 (defrule
+   (current-age == feudal-age) 
+   (unit-type-count-total villager < feudal-age-max-villagers) 
+   (can-research ri-wheel-barrow)
+   =>
+   (research ri-wheel-barrow)
+   (chat-to-allies "Researching wheel barrow.")
+)
+
+(defrule
    (current-age == imperial-age)
    (can-research ri-man-at-arms)
    =>
@@ -1026,9 +1036,24 @@
    (can-build siege-workshop)
    =>
    (chat-local-to-self "building siege-workshop.")
-   (build barracks)
+   (build siege-workshop)
 )
 
+(defrule
+(building-type-count-total siege-workshop == 2)
+(can-research capped-ram)
+=>
+(chat-local-to-self "researching Capped ram.")
+(research capped-ram)
+)
+
+(defrule
+(building-type-count-total siege-workshop == 2)
+(can-research siege-ram)
+=>
+(chat-local-to-self "researching Siege ram.")
+(research siege-ram)
+)
 ; ****************FARMING***************
 ; keep farms at lower priority than buildings
 (defrule
@@ -1072,6 +1097,14 @@
 (defrule
    (current-age == dark-age) 
    (unit-type-count-total villager < dark-age-max-villagers) 
+   (can-train villager)
+   =>
+   (train villager)
+)
+
+(defrule
+   (current-age == dark-age) 
+   (unit-type-count-total villager < feudal-age-max-villagers) 
    (can-train villager)
    =>
    (train villager)

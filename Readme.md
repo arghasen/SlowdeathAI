@@ -74,3 +74,7 @@ Game 4:
 Lost in 1hr to 2nd wave of Knights, managed to reach Imp but was destryed by then.
 
 Looks like the results in the few games before I stopped dev were an abberation, the AI is losing heavily to Standard HD AI.
+
+## v0.8
+Changed the build order in dark age
+Lost in 1hr 35 mins to Japanese Arbalests and Trebuchets. There was no rush in this game.
