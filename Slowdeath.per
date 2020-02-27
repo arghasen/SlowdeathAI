@@ -437,9 +437,9 @@
 (defrule
 	(unit-type-count villager == 23)
 =>
-	(set-strategic-number sn-wood-gatherer-percentage 40)	;9
+	(set-strategic-number sn-wood-gatherer-percentage 45)	;10
 	(set-strategic-number sn-food-gatherer-percentage 55)	;13
-	(set-strategic-number sn-gold-gatherer-percentage 5)	;1
+	(set-strategic-number sn-gold-gatherer-percentage 0)	;1
 	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 (defrule
@@ -453,21 +453,10 @@
 (defrule
 	(unit-type-count villager == 25)
 =>
-	(set-strategic-number sn-wood-gatherer-percentage 36)	;9
+	(set-strategic-number sn-wood-gatherer-percentage 40)	;10
 	(set-strategic-number sn-food-gatherer-percentage 52)	;13
-	(set-strategic-number sn-gold-gatherer-percentage 12)	;3
+	(set-strategic-number sn-gold-gatherer-percentage 2)	;3
 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-(defrule
-   (goal g-age-status gv-dark-age) 
-   (unit-type-count villager >= 26)
-   =>
-   (set-strategic-number sn-food-gatherer-percentage 70)
-   (set-strategic-number sn-wood-gatherer-percentage 30)
-   (set-strategic-number sn-gold-gatherer-percentage 0)
-   (set-strategic-number sn-stone-gatherer-percentage 0)
-   (disable-self)
 )
 
 (defrule
@@ -482,8 +471,8 @@
 (defrule
    (goal g-age-status gv-feudal-age)  
    =>
-   (set-strategic-number sn-food-gatherer-percentage 45)
-   (set-strategic-number sn-wood-gatherer-percentage 40)
+   (set-strategic-number sn-food-gatherer-percentage 40)
+   (set-strategic-number sn-wood-gatherer-percentage 45)
    (set-strategic-number sn-gold-gatherer-percentage 10)
    (set-strategic-number sn-stone-gatherer-percentage 5)
    (disable-self)
@@ -615,7 +604,7 @@
 
 (defrule
    (current-age == feudal-age) 
-   (unit-type-count-total villager < feudal-age-max-villagers) 
+   (unit-type-count-total villager == feudal-age-max-villagers) 
    (can-research ri-wheel-barrow)
    =>
    (research ri-wheel-barrow)
@@ -925,7 +914,7 @@
 )
 
 (defrule
-   (or(current-age > dark-age)
+   (or(goal g-age-status gv-advancing-to-castle)
       (goal g-age-status gv-advancing-to-feudal))
    (building-type-count-total mining-camp > 0)
    (building-type-count-total barracks < 1)
@@ -1072,7 +1061,7 @@
 )
 (defrule
    (goal g-age-status gv-feudal-age) 
-   (building-type-count-total farm <= 15)
+   (building-type-count-total farm <= 12)
    (idle-farm-count == 0)
    (can-build farm)
    =>
@@ -1103,7 +1092,7 @@
 )
 
 (defrule
-   (current-age == dark-age) 
+   (current-age == feudal-age) 
    (unit-type-count-total villager < feudal-age-max-villagers) 
    (can-train villager)
    =>
@@ -1111,7 +1100,7 @@
 )
 
 (defrule                     
-   (current-age > dark-age) 
+   (current-age > feudal-age) 
    (unit-type-count-total villager < 100)
    (can-train villager)
    =>
@@ -1235,7 +1224,8 @@
 )
 
 (defrule
-   (current-age > feudal-age)
+   (or(current-age > feudal-age)
+      ((goal g-age-status gv-advancing-to-castle))
    (military-population <= 10)  
    (can-train spearman-line)
    =>

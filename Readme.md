@@ -78,3 +78,7 @@ Looks like the results in the few games before I stopped dev were an abberation,
 ## v0.8
 Changed the build order in dark age
 Lost in 1hr 35 mins to Japanese Arbalests and Trebuchets. There was no rush in this game.
+
+## v8.1
+reduce max vills in dark to 25, max in feudal to 30, change wheelborough research and add capped ram, seige ram research.
+Lost heavily in 30 mins.
