@@ -144,7 +144,7 @@
 (defrule
    (resource-found wood)
    (strategic-number sn-camp-max-distance == 8)
-   (game-time < 4)
+   (game-time < 240)
    =>
    (set-strategic-number sn-camp-max-distance 11)
    (chat-local-to-self "Camp distance 11.")
@@ -154,7 +154,7 @@
 (defrule
    (resource-found wood)
    (strategic-number sn-camp-max-distance == 8)
-   (game-time < 7)
+   (game-time < 420)
    =>
    (set-strategic-number sn-camp-max-distance 13)
    (chat-local-to-self "Camp distance 13.")
@@ -164,7 +164,7 @@
 (defrule
    (resource-found wood)
    (strategic-number sn-camp-max-distance == 8)
-   (game-time < 12)
+   (game-time < 600)
    =>
    (set-strategic-number sn-camp-max-distance 15)
    (chat-local-to-self "Camp distance 15.")
@@ -174,7 +174,7 @@
 (defrule
    (resource-found wood)
    (strategic-number sn-camp-max-distance == 8)
-   (game-time < 16)
+   (game-time < 960)
    =>
    (set-strategic-number sn-camp-max-distance 17)
    (chat-local-to-self "Camp distance 17.")
@@ -184,7 +184,7 @@
 (defrule
    (resource-found wood)
    (strategic-number sn-camp-max-distance == 8)
-   (game-time < 25)
+   (game-time < 1500)
    =>
    (set-strategic-number sn-camp-max-distance 20)
    (chat-local-to-self "Camp distance 20.")
@@ -194,7 +194,7 @@
 (defrule
    (resource-found wood)
    (strategic-number sn-camp-max-distance == 8)
-   (game-time > 25)
+   (game-time > 1500)
    =>
    (set-strategic-number sn-camp-max-distance 22)
    (chat-local-to-self "Camp distance 22.")
@@ -915,6 +915,7 @@
    (build mining-camp)
 )
 
+; barrack rules
 (defrule
    (or(goal g-age-status gv-advancing-to-castle)
       (goal g-age-status gv-advancing-to-feudal))
@@ -932,6 +933,16 @@
    (can-build barracks)
    =>
    (build barracks)
+)
+
+
+(defrule
+   (town-under-attack)
+   (players-unit-type-count any-enemy archer-line > 5)
+   (building-type-count-total archery-range < 1)
+   (can-build archery-range)
+   =>
+   (build archery-range)
 )
 
 ; build a blacksmith
@@ -1005,7 +1016,7 @@
 
 (defrule
    (current-age >= castle-age)
-   (building-type-count-total town-center <=1)
+   (building-type-count-total town-center <= 1)
    (can-build town-center)
    =>
    (chat-local-to-self "building town-center.")
@@ -1200,6 +1211,14 @@
    (research ri-pikeman)
    (chat-local-to-self "Researching pikeman.")
 )
+; research elite skrimsher
+(defrule
+   (unit-type-count skirmisher > 5)
+   (can-research ri-elite-skirmisher)
+   =>
+   (research ri-elite-skirmisher)
+   (chat-local-to-self "Researching elite-skirmisher.")
+)
 ; research Halberdier 
 (defrule
    (can-research ri-halberdier )
@@ -1263,6 +1282,13 @@
    (can-train spearman-line)
    =>
    (train spearman-line)
+) 
+(defrule
+   (goal g-age-status gv-castle-age)
+         (players-unit-type-count any-enemy archer-line > 5)
+   (can-train skirmisher-line)
+   =>
+   (train skirmisher-line)
 ) 
 
 (defrule

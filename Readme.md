@@ -94,3 +94,8 @@ Lost in 40 mins, had a bad wood lumbercamp at the start and never recovered in w
 ## v0.8.4
 Build second barrack if under attack, build castle a bit earlier, delay tc, university and monastry when under attack.
 Lost under 30 mins with bad lumbercamp again.
+
+## v0.8.5
+Fixed the lumber camp placement timings to be in seconds, I put them thinking in minutes and it was messing up
+Game 1: Won in 1 hr 17 mins against a slightly delayed Knight rush.
+Game 2: Lucky win in 1hr 24 mins as his archers ran into my castles.
