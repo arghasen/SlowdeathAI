@@ -79,6 +79,13 @@ Looks like the results in the few games before I stopped dev were an abberation,
 Changed the build order in dark age
 Lost in 1hr 35 mins to Japanese Arbalests and Trebuchets. There was no rush in this game.
 
-## v8.1
+## v0.8.1
 reduce max vills in dark to 25, max in feudal to 30, change wheelborough research and add capped ram, seige ram research.
 Lost heavily in 30 mins.
+
+## v0.8.2
+Start training military when advancing to castle, delay the barracks if already in feudal.
+Lost in 50 mins, survived 1st wave of knights, lost to 2nd wave.
+
+## v0.8.3 
+change the order of researches a bit, make the boom more like a 3tc boom then a 4tc boom. Train upto 20 military in castle age.

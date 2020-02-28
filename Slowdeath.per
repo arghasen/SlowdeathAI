@@ -661,7 +661,7 @@
 )
 ; ################################## Castle Age Research
 (defrule
-   (building-type-count town-center > 2)
+   (building-type-count town-center >= 2)
    (can-research ri-hand-cart)
    =>
    (research ri-hand-cart)
@@ -669,7 +669,7 @@
 )
 
 (defrule
-   (building-type-count town-center > 2)
+   (building-type-count town-center >= 2)
    (can-research ri-bow-saw)
    =>
    (research ri-bow-saw)
@@ -677,7 +677,7 @@
 )
 
 (defrule
-   (building-type-count town-center > 2)
+   (building-type-count town-center >= 2)
    (can-research ri-heavy-plow)
    =>
    (research ri-heavy-plow)
@@ -685,7 +685,7 @@
 )
 
 (defrule
-   (building-type-count-total town-center > 3)
+   (building-type-count-total town-center >= 3)
    (can-research ri-chain-mail)
    =>
    (research ri-chain-mail)
@@ -693,7 +693,7 @@
 )
 
 (defrule
-   (building-type-count-total town-center > 3)
+   (building-type-count-total town-center >= 3)
    (can-research ri-iron-casting)
    =>
    (research ri-iron-casting)
@@ -926,7 +926,6 @@
 ; build a blacksmith
 (defrule
    (current-age >= feudal-age)
-   (building-type-count-total barracks > 0)
    (building-type-count-total blacksmith == 0)
    (can-build blacksmith)
    =>
@@ -936,7 +935,6 @@
 ; build a market
 (defrule
    (current-age == feudal-age)
-   (building-type-count-total blacksmith > 0)
    (building-type-count-total market == 0)
    (can-build market)
    =>
@@ -972,6 +970,7 @@
 (defrule
    (current-age == castle-age)
    (building-type-count-total monastery == 0)
+   (building-type-count-total town-center > 2)
    (can-build monastery)
    =>
    (chat-local-to-self "building monastery.")
@@ -981,6 +980,7 @@
 ; build a university
 (defrule
    (current-age == castle-age)
+   (building-type-count-total town-center > 2)
    (building-type-count-total university == 0)
    (can-build university)
    =>
@@ -991,7 +991,7 @@
 (defrule
    (current-age >= castle-age)
    (building-type-count-total town-center < 4)
-   (unit-type-count villager < 90) ; dont make TC if already have 90 vills.
+   (unit-type-count villager < 80) ; dont make TC if already have 80 vills.
    (can-build town-center)
    =>
    (chat-local-to-self "building town-center.")
@@ -1007,7 +1007,7 @@
    (build castle)
 )
 
-;build upto barracks in imperial age
+;build upto 10 barracks in imperial age
 (defrule
    (current-age > castle-age)
    (building-type-count-total barracks < 10)
@@ -1030,18 +1030,18 @@
 
 (defrule
 (building-type-count-total siege-workshop == 2)
-(can-research capped-ram)
+(can-research ri-capped-ram)
 =>
 (chat-local-to-self "researching Capped ram.")
-(research capped-ram)
+(research ri-capped-ram)
 )
 
 (defrule
 (building-type-count-total siege-workshop == 2)
-(can-research siege-ram)
+(can-research ri-siege-ram)
 =>
 (chat-local-to-self "researching Siege ram.")
-(research siege-ram)
+(research ri-siege-ram)
 )
 ; ****************FARMING***************
 ; keep farms at lower priority than buildings
@@ -1225,7 +1225,7 @@
 
 (defrule
    (or(current-age > feudal-age)
-      ((goal g-age-status gv-advancing-to-castle))
+      (goal g-age-status gv-advancing-to-castle))
    (military-population <= 10)  
    (can-train spearman-line)
    =>
@@ -1233,15 +1233,24 @@
 )
 
 (defrule
+   (goal g-age-status gv-castle-age)
+   (unit-type-count villager > 50)
+      (military-population <= 20)  
+   (can-train spearman-line)
+   =>
+   (train spearman-line)
+) 
+
+(defrule
    (goal g-age-status gv-imperial-age)
-   (unit-type-count villager > 100)
+   (unit-type-count villager > 90)
    (can-train militiaman-line)
    =>
    (train militiaman-line)
 ) 
 (defrule
    (goal g-age-status gv-advancing-to-imperial)  
-   (unit-type-count villager > 100)
+   (unit-type-count villager > 90)
    (can-train militiaman-line)
    =>
    (train militiaman-line)
@@ -1259,6 +1268,13 @@
    (can-train battering-ram-line)
    =>
    (train battering-ram-line)
+)
+(defrule
+   (military-population >= 80)
+   (can-train trebuchet)
+   (unit-type-count trebuchet < 3)
+   =>
+   (train trebuchet)
 )
 ; be conservative as standard AI doesnt attack much
 (defrule
