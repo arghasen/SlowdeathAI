@@ -99,3 +99,8 @@ Lost under 30 mins with bad lumbercamp again.
 Fixed the lumber camp placement timings to be in seconds, I put them thinking in minutes and it was messing up
 Game 1: Won in 1 hr 17 mins against a slightly delayed Knight rush.
 Game 2: Lucky win in 1hr 24 mins as his archers ran into my castles.
+
+## v0.9
+Added skirmisher defense vs archers.
+Game 1: Won in 1 hr 21 mins after defending an archer rush.
+Game 2: Won in 1 hr 53 mins against flush archer rush. 

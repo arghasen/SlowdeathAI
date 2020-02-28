@@ -687,7 +687,8 @@
 )
 
 (defrule
-   (building-type-count-total town-center >= 3)
+   (or(building-type-count-total town-center >= 3)
+      (goal g-age-status gv-imperial-age))
    (can-research ri-chain-mail)
    =>
    (research ri-chain-mail)
@@ -695,7 +696,8 @@
 )
 
 (defrule
-   (building-type-count-total town-center >= 3)
+   (or(building-type-count-total town-center >= 3)
+      (goal g-age-status gv-imperial-age))
    (can-research ri-iron-casting)
    =>
    (research ri-iron-casting)
@@ -703,7 +705,8 @@
 )
 
 (defrule
-   (building-type-count town-center >= 3)
+   (or(building-type-count-total town-center >= 3)
+      (goal g-age-status gv-imperial-age))
    (can-research ri-gold-shaft-mining)
    =>
    (research ri-gold-shaft-mining)
@@ -711,7 +714,8 @@
 )
 
 (defrule
-   (building-type-count town-center >= 3)
+   (or(building-type-count-total town-center >= 3)
+      (goal g-age-status gv-imperial-age))
    (can-research ri-stone-shaft-mining)
    =>
    (research ri-stone-shaft-mining)
