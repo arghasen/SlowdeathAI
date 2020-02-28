@@ -460,7 +460,9 @@
 )
 
 (defrule
-   (goal g-age-status gv-advancing-to-feudal)  
+   (or(goal g-age-status gv-advancing-to-feudal)
+      (goal g-age-status gv-advancing-to-castle)
+   )
    =>
    (set-strategic-number sn-food-gatherer-percentage 35)
    (set-strategic-number sn-wood-gatherer-percentage 55)
@@ -876,7 +878,7 @@
 (defrule
    (building-type-count-total lumber-camp == 2)
    =>
-   (set-strategic-number sn-maximum-wood-drop-distance 15)
+   (set-strategic-number sn-maximum-wood-drop-distance 5)
    (disable-self)
 )
 
@@ -923,7 +925,17 @@
    (build barracks)
 )
 
+(defrule
+   (town-under-attack)
+   (unit-type-count villager > 40) ; if under attack make a second barrack
+   (building-type-count-total barracks < 2)
+   (can-build barracks)
+   =>
+   (build barracks)
+)
+
 ; build a blacksmith
+
 (defrule
    (current-age >= feudal-age)
    (building-type-count-total blacksmith == 0)
@@ -932,6 +944,7 @@
    (chat-local-to-self "building blacksmith.")
    (build blacksmith)
 )
+
 ; build a market
 (defrule
    (current-age == feudal-age)
@@ -968,6 +981,7 @@
 
 ; build a monastery
 (defrule
+   (not(town-under-attack))
    (current-age == castle-age)
    (building-type-count-total monastery == 0)
    (building-type-count-total town-center > 2)
@@ -979,6 +993,7 @@
 
 ; build a university
 (defrule
+   (not(town-under-attack))
    (current-age == castle-age)
    (building-type-count-total town-center > 2)
    (building-type-count-total university == 0)
@@ -990,6 +1005,16 @@
 
 (defrule
    (current-age >= castle-age)
+   (building-type-count-total town-center <=1)
+   (can-build town-center)
+   =>
+   (chat-local-to-self "building town-center.")
+   (build town-center)
+)
+
+(defrule
+   (not(town-under-attack))
+   (current-age >= castle-age)
    (building-type-count-total town-center < 4)
    (unit-type-count villager < 80) ; dont make TC if already have 80 vills.
    (can-build town-center)
@@ -1000,7 +1025,6 @@
 
 (defrule
    (current-age >= castle-age)
-   (building-type-count-total university == 1)
    (can-build castle)
    =>
    (chat-local-to-self "building castle.")
@@ -1053,7 +1077,7 @@
    (unit-type-count-total villager > 15); wait till atleast 15 vills before farms.
    (or(building-type-count-total farm < 15)
       (idle-farm-count == 0 ))
-   (idle-farm-count < 4)
+   (idle-farm-count < 2)
    (can-build farm)
    =>
    (chat-local-to-self "building farm.")

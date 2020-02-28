@@ -89,3 +89,8 @@ Lost in 50 mins, survived 1st wave of knights, lost to 2nd wave.
 
 ## v0.8.3 
 change the order of researches a bit, make the boom more like a 3tc boom then a 4tc boom. Train upto 20 military in castle age.
+Lost in 40 mins, had a bad wood lumbercamp at the start and never recovered in wood situation.
+
+## v0.8.4
+Build second barrack if under attack, build castle a bit earlier, delay tc, university and monastry when under attack.
+Lost under 30 mins with bad lumbercamp again.
