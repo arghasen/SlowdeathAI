@@ -104,3 +104,20 @@ Game 2: Lucky win in 1hr 24 mins as his archers ran into my castles.
 Added skirmisher defense vs archers.
 Game 1: Won in 1 hr 21 mins after defending an archer rush.
 Game 2: Won in 1 hr 53 mins against flush archer rush. 
+
+## v0.9.1
+Small bugfix to research
+Game 1: Won in 1 hr against archer rush.(Britons)
+Game 2: Won in 1hr 15 mins. Not much attack from opponent(franks)
+Game 3: *MODERATE Original AI* Won in 1 hr 31 mins. No attack by the AI
+
+
+# Hard Original AI battles
+We skipped looking to fight the Moderate AI as the timings of playing vs AI on any other difficulty other than Hard is incorrect. So we will go on to fight the Original AI in Hard in this section. We will also start structuring our AI a bit better.
+
+Game 1: Lost vs Franks 1 hr 20 mins. 
+Game 2: Lost vs Franks 1 hr 30 mins.(We made more vills in dark and feudal age)
+
+## v0.9.2
+Create One monk for relics, train skrimishers in imperial as well if archers are there. Research Wheelborrow a bit earlier.
+Won in 1hr 40 mins. (Teutons mirror )

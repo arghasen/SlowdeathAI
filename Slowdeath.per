@@ -3,8 +3,13 @@
 ; Defconst Rules 
 ;
 ;******************************************************************************
+#load-if-defined DIFFICULTY-EASY
 (defconst dark-age-max-villagers 25)
 (defconst feudal-age-max-villagers 30)
+#else
+(defconst dark-age-max-villagers 30)
+(defconst feudal-age-max-villagers 35)
+#end-if
 (defconst town-center-foundation 621)
 
 ;******************************************************************************
@@ -598,7 +603,6 @@
 ;##################### Feudal Age Research #################
 (defrule
    (can-research castle-age)
-   (can-research ri-wheel-barrow)
    =>
    (research ri-wheel-barrow)
    (chat-to-allies "Researching wheel barrow.")
@@ -606,7 +610,7 @@
 
 (defrule
    (current-age == feudal-age) 
-   (unit-type-count-total villager == feudal-age-max-villagers) 
+   (unit-type-count-total villager > 26) 
    (can-research ri-wheel-barrow)
    =>
    (research ri-wheel-barrow)
@@ -1271,6 +1275,14 @@
 )
 
 (defrule
+   (goal g-age-status gv-castle-age)
+         (unit-type-count monk < 1) ; always keep one monk
+   (can-train monk)
+   =>
+   (train monk)
+) 
+
+(defrule
    (or(current-age > feudal-age)
       (goal g-age-status gv-advancing-to-castle))
    (military-population <= 10)  
@@ -1295,6 +1307,13 @@
    (train skirmisher-line)
 ) 
 
+(defrule
+   (goal g-age-status gv-imperial-age)
+         (players-unit-type-count any-enemy archer-line > 10)
+   (can-train skirmisher-line)
+   =>
+   (train skirmisher-line)
+) 
 (defrule
    (goal g-age-status gv-imperial-age)
    (unit-type-count villager > 90)
