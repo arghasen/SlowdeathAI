@@ -63,13 +63,18 @@ Won in 59.11 min. Normal 2nd wave.
 # Update 27th Feb 2020
 
 I was away from scripting AI for over an year and now look to improve this further. First a few games will be played for me to remember the state the AI was when I stopped.
+
 The first 3 games were abandoned as the settings were incorrect.
+
 Game 1:
 Lost in 40 mins to Knight rush, AI ran into wood troubles and could never recover. It went to castle at 30 mins with 40 vills.
+
 Game 2:
 Lost in 45 mins to Long Swordman rush by Goths. AI did 27 min castle with 35 pop.
+
 Game 3:
 Lost in 51 mins to a late attack by Swordsmen and Crossbows. Managed to reach imperial age with 4 tc boom.
+
 Game 4:
 Lost in 1hr to 2nd wave of Knights, managed to reach Imp but was destryed by then.
 
@@ -77,47 +82,66 @@ Looks like the results in the few games before I stopped dev were an abberation,
 
 ## v0.8
 Changed the build order in dark age
+
 Lost in 1hr 35 mins to Japanese Arbalests and Trebuchets. There was no rush in this game.
 
 ## v0.8.1
 reduce max vills in dark to 25, max in feudal to 30, change wheelborough research and add capped ram, seige ram research.
+
 Lost heavily in 30 mins.
 
 ## v0.8.2
 Start training military when advancing to castle, delay the barracks if already in feudal.
+
 Lost in 50 mins, survived 1st wave of knights, lost to 2nd wave.
 
 ## v0.8.3 
 change the order of researches a bit, make the boom more like a 3tc boom then a 4tc boom. Train upto 20 military in castle age.
+
 Lost in 40 mins, had a bad wood lumbercamp at the start and never recovered in wood situation.
 
 ## v0.8.4
 Build second barrack if under attack, build castle a bit earlier, delay tc, university and monastry when under attack.
+
 Lost under 30 mins with bad lumbercamp again.
 
 ## v0.8.5
 Fixed the lumber camp placement timings to be in seconds, I put them thinking in minutes and it was messing up
+
 Game 1: Won in 1 hr 17 mins against a slightly delayed Knight rush.
+
 Game 2: Lucky win in 1hr 24 mins as his archers ran into my castles.
 
 ## v0.9
 Added skirmisher defense vs archers.
+
 Game 1: Won in 1 hr 21 mins after defending an archer rush.
+
 Game 2: Won in 1 hr 53 mins against flush archer rush. 
 
 ## v0.9.1
 Small bugfix to research
+
 Game 1: Won in 1 hr against archer rush.(Britons)
+
 Game 2: Won in 1hr 15 mins. Not much attack from opponent(franks)
-Game 3: *MODERATE Original AI* Won in 1 hr 31 mins. No attack by the AI
+
+Game 3: **MODERATE Original AI** Won in 1 hr 31 mins. No attack by the AI
 
 
 # Hard Original AI battles
+
 We skipped looking to fight the Moderate AI as the timings of playing vs AI on any other difficulty other than Hard is incorrect. So we will go on to fight the Original AI in Hard in this section. We will also start structuring our AI a bit better.
 
 Game 1: Lost vs Franks 1 hr 20 mins. 
+
 Game 2: Lost vs Franks 1 hr 30 mins.(We made more vills in dark and feudal age)
 
 ## v0.9.2
 Create One monk for relics, train skrimishers in imperial as well if archers are there. Research Wheelborrow a bit earlier.
+
 Won in 1hr 40 mins. (Teutons mirror )
+
+## v0.9.3
+
+Work in Progress
